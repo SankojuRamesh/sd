@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth import models as auth_models
 from django.utils.translation import gettext_lazy as _
+from usermanager import models  as usermodel
 
 
 class UserManager(auth_models.BaseUserManager):
@@ -30,3 +31,13 @@ class UserManager(auth_models.BaseUserManager):
         user.save(using=self._db)
 
         return user
+    def create_user_company(self, email, password, company):
+        user = self.create_user(email, password)
+        
+        user.company = company
+        
+        user.is_staff = True
+        user.is_superuser = True
+        user.roles = usermodel.UserRole.objects.get(id=1)
+        user.save(using=self._db)
+

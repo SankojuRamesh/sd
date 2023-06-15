@@ -72,7 +72,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         # Role must be either Supplier/SpotSupplier
         role = account.models.UserRole.objects.filter(
-            name__in=['Supplier', 'SpotSupplier'], name__iexact=role_name
+            name__in=['Admin', 'Superadmin'], name__iexact=role_name
         ).first()
         if role:
             user.roles = role
@@ -99,9 +99,9 @@ class SignInSerializer(jwt_serializers.TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         return data
-        user = UserSerializer(self.user, context=self.context).data
-        data.update(user)
-        return data
+        # user = UserSerializer(self.user, context=self.context).data
+        # data.update(user)
+        # return data
 
 
 
