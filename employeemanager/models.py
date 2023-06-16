@@ -8,8 +8,8 @@ User = get_user_model()
 
 
 class Employee(models.Model):
-    user_id         = models.ForeignKey(User, on_delete=models.CASCADE)
-    company_id      = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user         = models.ForeignKey(User, on_delete=models.CASCADE)
+    company      = models.ForeignKey(Company, on_delete=models.CASCADE)
     first_name      = models.CharField(max_length=100)
     last_name       = models.CharField(max_length=100, default='')
     husband_Father  = models.CharField(max_length=100, default='')

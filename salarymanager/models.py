@@ -10,8 +10,8 @@ from employeemanager.models import Employee
 
 
 class salaryModel(models.Model):
-    user_id         = models.ForeignKey(User, on_delete=models.CASCADE)
-    company_id      = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user         = models.ForeignKey(User, on_delete=models.CASCADE)
+    company      = models.ForeignKey(Company, on_delete=models.CASCADE)
     employee_code   = models.ForeignKey(Employee, on_delete=models.CASCADE) 
     sal_status      = models.CharField(max_length=100, default=1)
     updated_date   = models.CharField(max_length=100, default='')
