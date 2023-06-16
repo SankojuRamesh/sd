@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'usermanager',
     'companymanager',
     'employeemanager',
-    'attendencemanager'
+    'attendencemanager',
+    'salarymanager',
+   
 
 ]
 

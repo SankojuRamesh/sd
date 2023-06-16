@@ -15,8 +15,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         email  = validated_data['email']
-        pwd = validated_data['phone']
-         
+        pwd = validated_data['phone']         
         organization = CompanyModels.Company.objects.create(**validated_data)        
         userDAta = User.objects.create_user_company(email, pwd, organization)      
         return organization
