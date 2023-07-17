@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title">
+    <div>
+      <h1><i class="bi bi-table"></i>Employee DAta</h1>
+      
+    </div>
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item">employee</li>
+      <li class="breadcrumb-item active"><a href="#">Empkoyee</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="sampleTable">
+              <thead>
+                <tr>
+              
+                <th> first_name   </th>  
+                <th>  last_name   </th> 
+                <th>  husband_Father  </th>  
+                <th> relation_name   </th>  
+                <th>  gender          </th>  
+                <th>  contact_number  </th>  
+               
+                <th>  aadhar_number   </th>  
+                <th>   uan_number      </th> 
+                <th>     pan_number      </th>  
+               
+                <th> pf_no           </th> 
+                  <th> Actipns </th>  
+                
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for edata in data%}
+                <tr> 
+                  <td>  {{edata.Image  }}   </td> 
+                <td> {{edata.first_name  }}   </td> 
+                <td>  {{edata.last_name  }}   </td>
+                <td> {{edata.husband_Father  }}  </td> 
+                <td> {{edata.relation_name  }}   </td> 
+                <td>  {{edata.gender  }}          </td> 
+                <td>  {{edata.contact_numbe  }} </td> 
+                
+                <td>  {{edata.aadhar_number  }}   </td> 
+                <td>   {{edata.uan_number  }}      </td>
+                <td>     {{edata.pan_number  }}      </td> 
+              
+                <td> Show | Delete   </td>
+            
+               
+               
+                </tr>
+            {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+ 
+  {% endblock %}
+
+  {% block script %}
+ <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+  <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+ 
+ <script>
+  $('#sampleTable').DataTable();
+ 
+</script>
+{% endblock %}
+ 

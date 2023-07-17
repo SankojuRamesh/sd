@@ -7,7 +7,7 @@ from rest_framework import generics, parsers, permissions, renderers, viewsets
 # Create your views here.
 
 class EmployeeViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated ]
+    # permission_classes = [permissions.IsAuthenticated ]
     serializer_class = serializer.EmployeeSerializer
     queryset =  Employee.objects.all()
     #filterset_class = CompanyFilter

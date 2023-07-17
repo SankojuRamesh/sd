@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i_pdk2m00ulx4*0&v)fz0m22u)e_nz(sy#zj$&h(!h(aey$&)&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+"""774.208.107.6  root Z0zpivUn"""
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost","192.168.0.50"]
 
 
 # Application definition
@@ -36,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', 
+    'corsheaders',
      'rest_framework',
+     
      'django_filters',
     'drf_yasg',
     'usermanager',
@@ -45,14 +48,19 @@ INSTALLED_APPS = [
     'employeemanager',
     'attendencemanager',
     'salarymanager',
+    'frontend',
    
 
 ]
 
 MIDDLEWARE = [
+    
+ 'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+   
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+  
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -64,7 +72,7 @@ ROOT_URLCONF = 'sd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['tempaltes'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,9 +86,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sd.wsgi.application'
-
-
-# Database
+ORS_ORIGIN_ALLOW_ALL=True  
+CORS_ORIGIN_WHITELIST =["http://localhost:5000"]
+CORS_ALLOW_HEADERS = "*"
+#CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_HEADERS = ['*']
+# CORS_ORIGIN_WHITELIST = ('http://localhost:8000',)
+# # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
@@ -128,7 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [BASE_DIR / 'static',]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

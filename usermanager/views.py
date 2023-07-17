@@ -8,6 +8,9 @@ from rest_framework_simplejwt import views as jwt_views
 
 from . import models, serializers
 
+
+ 
+
 class SignInView(jwt_views.TokenObtainPairView):
     """
     SignIn Endpoint using email & password

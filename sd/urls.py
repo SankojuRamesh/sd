@@ -5,6 +5,9 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.contrib import admin
+from usermanager import views as userVies
+from frontend import views as frentViews
+
 
 router = DefaultRouter()
 # router.register('users', UserViewSet)
@@ -34,8 +37,16 @@ swagger_info = openapi.Info(
     license=openapi.License(name="MIT License"),
 )
 
-urlpatterns = [
-   # path('api/signin/', SignInView.as_view(), name='signin'),
+
+front_urls = [path('', frentViews.dashboard),
+              path('employee', frentViews.EmployeeView),
+              path('login', frentViews.login),
+              path('attendance', frentViews.AttendanceView)
+              
+              ]
+
+urlpatterns = front_urls+[
+    path('api/signin/', userVies.SignInView.as_view(), name='signin'),
    path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/user/', include('usermanager.urls')),
