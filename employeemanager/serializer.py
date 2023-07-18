@@ -5,9 +5,11 @@ from . import models as Employeemodel
 from usermanager import models as usermodel
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from usermanager.serializers import UserRoleSerializer
 
 User = get_user_model()
 class EmployeeSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Employeemodel.Employee
         fields = '__all__'

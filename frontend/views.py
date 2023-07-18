@@ -30,3 +30,7 @@ def  AttendanceView(request):
     return render(request, "attendance.html", {'data':Attendence_list })
 
  
+def  CompanyList(request):     
+    return render(request, "companylist.html" )
+
+ 

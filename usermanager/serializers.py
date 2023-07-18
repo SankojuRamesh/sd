@@ -63,7 +63,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'name', 'email', 'address', 'contact', 'avatar', 'roles', 'is_active')
+        fields = ('id', 'name', 'email', 'address', 'contact',   'roles', 'is_active')
         read_only_fields = ('email', 'is_active')
 
     def update(self, instance, validated_data):
@@ -82,7 +82,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation.update(instance.app_modules)
+        # representation.update(instance.app_modules)
         return representation
 
 class UserRoleSerializer(serializers.ModelSerializer):
@@ -98,10 +98,12 @@ class SignInSerializer(jwt_serializers.TokenObtainPairSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        return data
-        # user = UserSerializer(self.user, context=self.context).data
-        # data.update(user)
+        print(self.user)
         # return data
+        user = UserSerializer(self.user ).data
+         
+        data.update(user)
+        return data
 
 
 

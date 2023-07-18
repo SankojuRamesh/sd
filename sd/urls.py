@@ -41,7 +41,8 @@ swagger_info = openapi.Info(
 front_urls = [path('', frentViews.dashboard),
               path('employee', frentViews.EmployeeView),
               path('login', frentViews.login),
-              path('attendance', frentViews.AttendanceView)
+              path('attendance', frentViews.AttendanceView),
+                path('company', frentViews.CompanyList)
               
               ]
 

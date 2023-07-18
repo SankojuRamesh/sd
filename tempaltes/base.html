@@ -14,7 +14,7 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   </head>
-  <body class="app sidebar-mini">
+  <body class="app sidebar-mini" >
     <input type="hidden" value="{{ request.get_host }}" id="base_url">
     <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
@@ -75,6 +75,7 @@
       </ul>
     </header>
     <!-- Sidebar menu-->
+    <div id="app">
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Image">
@@ -84,61 +85,68 @@
         </div>
       </div>
       <ul class="app-menu">
-        <!-- <li><a class="app-menu__item" href="dashboard.html"><i class="app-menu__icon bi bi-speedometer"></i><span class="app-menu__label">Dashboard</span></a></li>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">Company Manager</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+       
+ 
+        <li class="treeview" v-for="(menudata, index) in Menu">
+          <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i>
+            <span class="app-menu__label">[[menudata.title]]</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="javasript:void(0)"><i class="icon bi bi-circle-fill"></i>CompanyList</a></li>
-            <li><a class="treeview-item" href="javasript:void(0)" ><i class="icon bi bi-circle-fill"></i>New Company</a></li>
-           
+            <li v-for="(link, index) in menudata.links">
+              <a class="treeview-item" :href="[[link.rout]]"  >
+                <i class="icon bi bi-circle-fill"></i>
+                [[link.menu]]
+              </a></li>
+             
           </ul>
-        </li> -->
-
-
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">Employee Manager</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="javasript:void(0)"><i class="icon bi bi-circle-fill"></i>EmployeeList</a></li>
-            <li><a class="treeview-item" href="javasript:void(0)" ><i class="icon bi bi-circle-fill"></i>New Emloyee</a></li>
-           
-          </ul>
-        </li>
-
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">Attendance Manager</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="javasript:void(0)"><i class="icon bi bi-circle-fill"></i>AttendanceList</a></li>
-            <li><a class="treeview-item" href="javasript:void(0)" ><i class="icon bi bi-circle-fill"></i>New Attendance</a></li>
-           
-          </ul>
-        </li>
-
-
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">Salary Manager</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="javasript:void(0)"><i class="icon bi bi-circle-fill"></i>PaySlips</a></li>
-            <li><a class="treeview-item" href="javasript:void(0)" ><i class="icon bi bi-circle-fill"></i>New salary</a></li>
-           
-          </ul>
-        </li>
-        
-     
+        </li>  
        
       </ul>
     </aside>
-    <main class="app-content">
+    <main class="app-content" >
 
       {% block content %}{% endblock %}
-     
+
     </main>
+  </div>
+  
+
     <!-- Essential javascripts for application to work-->
    
  
    <script src="{% static 'js/jquery-3.7.0.min.js'%}"></script>  
 
-      <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'js/main.js'%}"></script>   
-   
-    <!-- Page specific javascripts-->
-    <!-- Google analytics script-->
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  
+    <script>
+    
+     Token = JSON.parse(localStorage.getItem('Token'))      
+    const config = {
+        headers: { Authorization: `Bearer ${Token.access}` }
+    };
+
+  function menuview(){
+    rolse_menu ={"Superadmin":[{"title":'Company Manager', "links": [{"menu": "Company List", "rout":   "http://"+$("#base_url").val()+"/company"}]},
+                {"title":'settings', "link": [{"menu": "Company List", "rout":   "http://"+$("#base_url").val()+"/settings"}]}],
+     "Admin":[{"title":'Employee Manager', "links": [{"menu": "employee List", "rout":   "http://"+$("#base_url").val()+"/employee"},{"menu": "New Employee", "rout":   "http://"+$("#base_url").val()+"/newemployee"}]},
+
+              {"title":'Atandence Manager', "links": [{"menu": "attendence List", "rout":   "http://"+$("#base_url").val()+"/attendence"}]}
+    ] }
+    
+    return rolse_menu[Token.roles] 
+
+  }
+  // console.log(menuview('Superadmin'))
+ 
+    const AUTH = 'Bearer '.concat(Token.access);  
+ 
+</script> 
     {% block script %}{% endblock %} 
+    <script src="{% static 'js/main.js'%}"></script> 
+    <!---Parked-->
+    <!-- 74.208.204.46"TH4kP6Lk" -->
+  
   </body>
 </html>

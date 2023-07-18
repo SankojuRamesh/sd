@@ -2,15 +2,15 @@
 {% extends "base.html" %}
 {% block content %}
 {%load static%}
-<div class="app-title">
+<div class="app-title"  >
     <div>
-      <h1><i class="bi bi-table"></i>Employee DAta</h1>
+      <h1><i class="bi bi-table"></i>Employee list </h1>
       
     </div>
     <ul class="app-breadcrumb breadcrumb side">
       <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
       <li class="breadcrumb-item">employee</li>
-      <li class="breadcrumb-item active"><a href="#">Empkoyee</a></li>
+      <li class="breadcrumb-item active"><a href="#">Employee list</a></li>
     </ul>
   </div>
 
@@ -41,26 +41,22 @@
                 </tr>
               </thead>
               <tbody>
-                {% for edata in data%}
-                <tr> 
-                  <td>  {{edata.Image  }}   </td> 
-                <td> {{edata.first_name  }}   </td> 
-                <td>  {{edata.last_name  }}   </td>
-                <td> {{edata.husband_Father  }}  </td> 
-                <td> {{edata.relation_name  }}   </td> 
-                <td>  {{edata.gender  }}          </td> 
-                <td>  {{edata.contact_numbe  }} </td> 
-                
-                <td>  {{edata.aadhar_number  }}   </td> 
-                <td>   {{edata.uan_number  }}      </td>
-                <td>     {{edata.pan_number  }}      </td> 
-              
-                <td> Show | Delete   </td>
-            
-               
-               
+                <tr v-for="edata in responce_data"  >
+                 
+                  <td> [[edata.user]]   </td> 
+                  <td>  [[edata.last_name]]   </td>
+                  <td> [[edata.husband_Father]]  </td> 
+                  <td> [[edata.relation_name]]   </td> 
+                  <td>  [[edata.gender]]          </td> 
+                  <td>  [[edata.contact_numbe]] </td> 
+                  
+                  <td>  [[edata.aadhar_number  ]]   </td> 
+                  <td>   [[edata.uan_number  ]]      </td>
+                  <td>     [[edata.pan_number  ]]      </td> 
+                 <td      > [[edata.pf_no ]]</td> 
+                  <td> Show | Delete   </td>
                 </tr>
-            {%endfor%}
+              
               </tbody>
             </table>
           </div>
@@ -74,10 +70,44 @@
   {% block script %}
  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
   <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
- 
- <script>
-  $('#sampleTable').DataTable();
+  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
+  <script>
+    new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        Menu:[],
+        message: '',
+        responce_data: '!'
+      },
+      methods: {
+        getEmpDAta(){
+         const URL = "http://"+$("#base_url").val()+'/api/employee/employee/'
+        axios.get(URL, config)
+        .then(response => {
+          data = response.data 
+          this.responce_data =  data 
+           
+          return responce_obj
+        })
+        .catch((error) => {
+          if( error.response.status == 401){
+            window.location.replace("http://"+$("#base_url").val()+"/login");
+          }
+            console.log('error ' + error.response.status);
+        });
+        },
+      
+      },
+      mounted(){
+        this.Menu = menuview()
+          console.log(this.Menu)
+          this.getEmpDAta()
+          
+        }
+    }); 
+    
+    $('#sampleTable').DataTable(); 
  
 </script>
 {% endblock %}

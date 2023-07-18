@@ -7,8 +7,14 @@ from rest_framework import generics, parsers, permissions, renderers, viewsets
 # Create your views here.
 
 class EmployeeViewSet(viewsets.ModelViewSet):
-    # permission_classes = [permissions.IsAuthenticated ]
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Employee.objects.filter(user=user)
+        return queryset
+    
+    permission_classes = [permissions.IsAuthenticated ]
     serializer_class = serializer.EmployeeSerializer
     queryset =  Employee.objects.all()
+    
     #filterset_class = CompanyFilter
     http_method_names = ['get', 'post', 'put', 'delete']

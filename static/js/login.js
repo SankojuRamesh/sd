@@ -1,42 +1,27 @@
 $(document).ready(function(){
 
- base_url = $("#base_url").val()
- 
+ base_url = "http://"+$("#base_url").val()
 
     $("#signin").click(function(){
-        email = $("#email").val()
-        pwd = $("#pwd").val()
-        loginData = JSON.stringify({
-            "email": email,
-            "password": pwd
-        })
-        // axios.post("http://localhost:8000/api/user/sign-in/",  {
-        //     params:loginData
-            
-        //   }, {headers: {
-        //     "Accept": "application/json",
-        //     "Content-Type": "application/json"
-        // }})
-        //   .then(function (response) {
-        //       console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
- 
-        $.post({
-            url: 'http://localhost:8000/api/signin/', // Replace this with the URL of your server endpoint
-            data:  loginData, // The data to be sent to the server in JSON format
-            contentType: 'application/json', 
-            accept:"application/json", // The content type of the data being sent
-            dataType: 'json', // The expected data type of the response from the server
-            success: function(response) {
-              // This function is called if the request is successful
-              console.log('Response from server:', response);
+       $("#loginnModel").modal('show');
+        data=  JSON.stringify({email :$("#email").val(),
+        "password" : $("#pwd").val()
+         })
+         
+        $.ajax({
+            url: 'http://localhost:8000/api/signin/',  
+            data:  data,  
+            contentType: "application/json",
+            method:"POST", 
+            success: function(response) { 
+                console.log('Response from server:', response);
+                localStorage.setItem("Token", JSON.stringify(response));
+                window.location.replace(base_url);
+                
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-              // This function is called if there's an error with the request
-              console.error('Error:', textStatus, errorThrown);
+            error: function(xhr, status, err) {
+             
+               
             }
           });
 })

@@ -1,0 +1,198 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title"  >
+    
+      <h1><i class="bi bi-table"></i>Company List </h1> <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#myModal">New</button>
+      
+     
+   
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item">employee</li>
+      <li class="breadcrumb-item active"><a href="#">Empkoyee</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="sampleTable">
+              <thead>
+                <tr>
+              
+                <th> name   </th>  
+                <th>  address   </th> 
+                <th>  phone  </th>  
+                <th> email   </th> 
+                  <th> Actipns </th>  
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="edata in company_data"  > 
+                 
+                  <td>  [[edata.name]]   </td>
+                  <td> [[edata.address]]  </td> 
+                  <td> [[edata.phone]]   </td> 
+                  <td>  [[edata.email]]  </td> 
+                
+                  <td> <div class="btn-group">
+                    <button class="btn btn-primary btn-sm" @click = "deleteCompany([[edata.id]])" type="button"><i class="bi bi-trash fs-5"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-reply fs-5"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-share fs-5"></i></button>
+                   
+                  </div>  </td>
+                </tr>
+      
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> 
+
+
+           <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">New Comapany</h4>
+      </div>
+      <div class="modal-body">
+     
+       <div class="tile-body">
+        <form class="form-horizontal">
+          <div class="mb-3 row">
+            <label class="form-label col-md-3">Comapany Name</label>
+            <div class="col-md-8">
+              <input class="form-control" type="text" v-model="companyname"  placeholder="Enter   name">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="form-label col-md-3">Email</label>
+            <div class="col-md-8">
+              <input class="form-control col-md-8"  v-model="companyemail"  type="email" placeholder="Enter email address">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="form-label col-md-3">Phone</label>
+            <div class="col-md-8">
+              <input class="form-control col-md-8"  v-model="companyphone" type="text" placeholder="Enter phone number">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="form-label col-md-3">Address</label>
+            <div class="col-md-8">
+              <textarea class="form-control" rows="4"   v-model="companyaddres"  placeholder="Enter your address"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"  @click="newCompany"  >Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  {% endblock %}
+
+  {% block script %} 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+  <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+  <script>
+    new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        url: "http://"+$("#base_url").val()+'/api/company/company/',
+        Menu:[],
+        message: '',
+        company_data: '',
+        companyname:'',
+        companyemail:'',
+        companyphone:'',
+        companyaddres:'',
+      },
+      methods: {
+        getCompanyList(){           
+          axios.get(this.url, config).then(response => {              
+              this.company_data =  response.data  
+          }).catch((error) => {
+              if( error.response.status == 401){
+                window.location.replace("http://"+$("#base_url").val()+"/login");
+              }
+              console.log('error ' + error.response.status);
+          });
+        },
+        newCompany(){         
+          if(this.companyname !='' & this.companyphone !='' & this.companyemail != ''){
+            data =  {
+                name: this.companyname,
+                address: this.companyaddres,
+                phone:  this.companyphone,
+                email:  this.companyemail,
+                logo:this.companyphone 
+              }
+            
+            axios.post(this.url, data, config).then(response => {  
+                 $(".close").click() 
+                 this.getCompanyList()
+               }).catch((error) => {
+              if( error.response.status == 201){
+                
+              }
+              console.log('error ' + error.response.status);
+          });
+             
+
+          }else{
+            alert("please enter valid data")
+          }
+
+        },
+        deleteCompany(cid){
+          data= JSON.stringify({"id" :cid})          
+          axios.delete(this.url+cid,  config).then(response => {  
+            this.getCompanyList()
+          }).catch((error) => {
+
+          })
+        },
+      
+      },
+      mounted(){
+        this.Menu = menuview()
+          console.log(this.Menu)
+          this.getCompanyList() 
+      }
+    }); 
+    
+    $('#sampleTable').DataTable();
+ 
+
+    //alert(getData('/api/employee/employee/'))
+ 
+</script>
+{% endblock %}
+
+
+ 

@@ -1,6 +1,6 @@
- {% extends "base.html" %}
- {% block content %}
- 
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
 
  <div class="app-title">
         <div>
@@ -19,5 +19,33 @@
           </div>
         </div>
       </div>
+      {% endblock %}
+
+      {% block script %}
+      <script>
+        new Vue({
+          delimiters: ['[[', ']]'], // Use custom 
+          el: '#app',
+          data: {
+            Menu:[],
+            message: '',
+            responce_data: '!'
+          },
+          methods: {
+            
+          },
+          mounted(){
+            this.Menu = menuview()
+              console.log(this.Menu)
+            
+            }
+        }); 
+        
+     
+     
+    
+        //alert(getData('/api/employee/employee/'))
+     
+    </script>
 
       {% endblock %}

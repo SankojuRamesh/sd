@@ -32,12 +32,10 @@ class UserManager(auth_models.BaseUserManager):
 
         return user
     def create_user_company(self, email, password, company):
-        user = self.create_user(email, password)
-        
-        user.company = company
-        
+        user = self.create_user(email, password)        
+        user.company = company        
         user.is_staff = True
-        user.is_superuser = True
-        user.roles = usermodel.UserRole.objects.get(id=1)
+        user.is_admin = True
+        user.roles = usermodel.UserRole.objects.get(id=2)
         user.save(using=self._db)
 

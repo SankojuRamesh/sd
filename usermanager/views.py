@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics, parsers, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt import views as jwt_views
+import requests
 
 from . import models, serializers
 
