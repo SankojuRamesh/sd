@@ -14,4 +14,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employeemodel.Employee
         fields = '__all__'
 
+    def create(self, validated_data):
+        phone  = validated_data['phone']
+        pwd = str(phone)+"_emp"        
+        organization =  validated_data['company']  #Employeemodel.Employee.objects.create(**validated_data)        
+        userDAta = User.objects.create_user_company(phone, pwd, organization, userType="Employee")  
+        validated_data['user'] =userDAta
+        return Employeemodel.Employee.objects.create(**validated_data)
+
  

@@ -7,6 +7,7 @@ from drf_yasg import openapi
 from django.contrib import admin
 from usermanager import views as userVies
 from frontend import views as frentViews
+from menumanager.views import MenuView
 
 
 router = DefaultRouter()
@@ -40,10 +41,11 @@ swagger_info = openapi.Info(
 
 front_urls = [path('', frentViews.dashboard),
               path('employee', frentViews.EmployeeView),
+            path('newemployee', frentViews.NewEmployeeView),
               path('login', frentViews.login),
               path('attendance', frentViews.AttendanceView),
-                path('company', frentViews.CompanyList)
-              
+                path('company', frentViews.CompanyList),
+                path('salary', frentViews.Salary),
               ]
 
 urlpatterns = front_urls+[
@@ -57,4 +59,7 @@ urlpatterns = front_urls+[
     path('api/attendance/', include('attendencemanager.urls')),
     path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/menu/', MenuView.as_view()),
+    
+
 ]

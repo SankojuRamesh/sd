@@ -4,8 +4,7 @@ $(document).ready(function(){
 
     $("#signin").click(function(){
        $("#loginnModel").modal('show');
-        data=  JSON.stringify({email :$("#email").val(),
-        "password" : $("#pwd").val()
+        data=  JSON.stringify({phone :$("#email").val(),password : $("#pwd").val()
          })
          
         $.ajax({

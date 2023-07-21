@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from rest_framework_simplejwt import serializers as jwt_serializers
 from rest_framework_simplejwt.tokens import RefreshToken
+from companymanager.serializer import CompanySerializer
 from . import models
 
 User = get_user_model()
@@ -98,11 +99,11 @@ class SignInSerializer(jwt_serializers.TokenObtainPairSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        print(self.user)
-        # return data
+        
         user = UserSerializer(self.user ).data
-         
+        company = CompanySerializer(self.user.company).data         
         data.update(user)
+        data.update({"company":company})
         return data
 
 

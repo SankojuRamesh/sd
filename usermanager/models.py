@@ -32,8 +32,9 @@ class User(auth_models.AbstractBaseUser, models.Model):
     )
 
     name = models.CharField(max_length=64)
+    phone =  models.CharField(max_length=64, unique=True)
 
-    email = models.EmailField(max_length=64, unique=True)
+    email = models.EmailField(max_length=64, null=True, blank=True)
 
     address = models.CharField(max_length=100, blank=True, null=True)
 
@@ -53,7 +54,7 @@ class User(auth_models.AbstractBaseUser, models.Model):
 
     objects = managers.UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'phone'
 
     @property
     def get_roles(self):

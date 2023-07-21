@@ -5,6 +5,7 @@ from django.db import models
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
+    companycode = models.CharField(max_length=100, default='')
     address = models.TextField()
     phone = models.CharField(max_length=20)
     email = models.EmailField()

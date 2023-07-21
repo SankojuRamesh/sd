@@ -7,35 +7,40 @@ from usermanager import models  as usermodel
 
 
 class UserManager(auth_models.BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, phone, password=None, **extra_fields):
 
         "Creates and saves a new user"
 
-        if not email:
+        if not phone:
             raise ValueError(_('Users must have an email address'))
 
-        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user = self.model(phone=phone, **extra_fields)
         if password:
             user.set_password(password)
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, phone, password):
 
         "Creates and saves a new superuser"
 
-        user = self.create_user(email, password)
+        user = self.create_user(phone, password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
 
         return user
-    def create_user_company(self, email, password, company):
-        user = self.create_user(email, password)        
+    def create_user_company(self, phone, password , company, userType):
+        user = self.create_user(phone, password)        
         user.company = company        
         user.is_staff = True
+        user.is_superuser = False
         user.is_admin = True
-        user.roles = usermodel.UserRole.objects.get(id=2)
+        roleid= 2
+        if userType == 'Employee':
+            roleid = 3
+        user.roles = usermodel.UserRole.objects.get(id=roleid)
         user.save(using=self._db)
+        return user
 

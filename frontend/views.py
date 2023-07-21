@@ -11,17 +11,18 @@ from attendencemanager.models import AttendanceModel
 
 def login(request):
     return render(request, 'login.html')
-
 def  dashboard(request):
     if not bool(request.user and request.user.is_authenticated) :
         ...
 
-    return render(request, "dashboard.html")
-
-
+    return render(request, "dashboard.html") 
 def  EmployeeView(request):
     Employe_list = Employee.objects.all()    
     return render(request, "employee.html", {'data':Employe_list })
+
+def  NewEmployeeView(request):
+    Employe_list = Employee.objects.all()    
+    return render(request, "newemployee.html", {'data':Employe_list })
 
 
 
@@ -34,3 +35,6 @@ def  CompanyList(request):
     return render(request, "companylist.html" )
 
  
+ 
+def  Salary(request):     
+    return render(request, "salary.html" )

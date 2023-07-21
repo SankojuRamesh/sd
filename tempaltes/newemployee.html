@@ -1,0 +1,318 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title">
+  <div>
+    <h1><i class="bi bi-ui-checks"></i> New  Employee</h1>
+    
+  </div>
+  <ul class="app-breadcrumb breadcrumb">
+    <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+    <li class="breadcrumb-item">Employee</li>
+    <li class="breadcrumb-item"><a href="#">new employee</a></li>
+  </ul>
+</div>
+
+
+<div class="row">
+
+ 
+
+
+  <div class="col-md-12">
+    <div class="tile">
+     
+      <div class="tile-body">
+        <!-----------------RowStart----------------->
+        <div class="row">
+          <div  class="col-3">
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input class="form-control" type="text" v-model="firstname" placeholder="Enter first name">
+            </div>
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Las Name</label>
+            <input class="form-control" type="text" v-model="lastname"  placeholder="Enter Lash name">
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Employee Code</label>
+            <input class="form-control" type="text" v-model="empcode"  readonly  placeholder="Enter Code">
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Phone</label>
+            <input class="form-control" type="text" v-model="phone"  placeholder="Enter Phone">
+          </div>
+        </div>
+         <!-----------------RoStart----------------->
+             <!-----------------RowStart----------------->
+        <div class="row">
+          <div  class="col-3">
+            <div class="mb-3">
+              <label class="form-label">Gender</label>
+              <select class="form-control"   v-model="gender"  id="exampleSelect1">
+                <option>Male</option>
+                <option>Fimale</option>
+                 
+              </select>
+            </div>
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Dob</label>
+            <input class="form-control" type="date"   v-model="date"   >
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Blood Group</label>
+            <select class="form-control" id="exampleSelect1"  v-model="bgroup" >
+              <option>A Positive</option>
+              <option>A Negative</option>
+              <option>A Unknown</option>
+              <option>B Positive</option>
+              <option>B Negative</option>
+              <option>B Unknown</option>
+              <option>AB Positive</option> 
+            </select>
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" type="text" placeholder="Enter email"  v-model="email" >
+          </div>
+        </div>
+         <!-----------------RoStart----------------->
+          <!-----------------RowStart----------------->
+        <div class="row">
+          <div  class="col-3">
+            <div class="mb-3">
+              <label class="form-label">Husband Father</label>
+              <input class="form-control" type="text" placeholder="Enter Husband/Father"  v-model="hf">
+            </div>
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Relation Name</label>
+            <input class="form-control" type="text" placeholder="Enter relation name"  v-model="relationname">
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Designation</label>
+            <input class="form-control" type="text" placeholder="Enter designation"  v-model="designation">
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Date of joining</label>
+            <input class="form-control" type="date" placeholder="Enter date_of_joining"  v-model="doj">
+          </div>
+        </div>
+         <!-----------------RoStart----------------->
+           <!-----------------RowStart----------------->
+        <div class="row">
+          <div  class="col-3">
+            <div class="mb-3">
+             <div class="row">
+            
+              <label class="form-label">Aadhar Number</label>
+              <input class="form-control" type="text" placeholder="Enter Aadhar number"  v-model="aadharnumber">
+
+
+                </div>
+
+            </div>
+          </div>
+        
+          <div  class="col-3">
+            <label class="form-label">Pan Number</label>
+            <input class="form-control" type="text" placeholder="Enter Code"  v-model="pannumber">
+            
+          </div>
+          <div  class="col-3">
+           
+            <div class="row">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" @change="dedectMethod($event)" id="esi" v-model="esi_state"    /> &nbsp; Have ESI Account 
+              
+                
+                <input class="form-control" type="text"   v-model="esi"    :readonly="isReadOnly"    placeholder="Enter PF Number"> 
+              </label>
+            </div>
+             
+          </div>
+          <div  class="col-3">
+           
+            <div class="row">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox"  value="yes"   @change="dedectMethod($event)" id="epf"  v-model="epf_state"   /> &nbsp; Have Pf Account 
+              
+                
+                <input class="form-control" type="text"  v-model="epf"  :readonly="isReadOnly"  placeholder="Enter PF Number"> 
+              </label>
+            </div>
+             
+          </div>
+        
+        </div>
+         <!-----------------RoStart----------------->
+
+          <!-----------------RowStart----------------->
+        <div class="row">
+           
+          <div  class="col-3">
+            <label class="form-label">Bank AC No</label>
+            <input class="form-control" type="text" placeholder="Enter bank ac no"   v-model="abankac">
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">IFSC  Code</label>
+            <input class="form-control" type="text" placeholder="Enter ifsc code"   v-model="ifsc">
+            
+          </div>
+          <div  class="col-3">
+            <label class="form-label">Bank Name</label>
+            <input class="form-control" type="text" placeholder="Enter Bank Name"   v-model="bname">
+          </div>
+        </div>
+         <!-----------------RoStart----------------->
+
+      </div>
+      <div class="tile-footer">
+        <button class="btn btn-primary" type="button" @click="addnewEmp"><i class="bi bi-check-circle-fill me-2" ></i>Register</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#"><i class="bi bi-x-circle-fill me-2"></i>Cancel</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+  {% endblock %}
+
+  {% block script %}
+ <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+  <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
+  <script>
+ 
+    new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        Token : JSON.parse(localStorage.getItem('Token'))  ,
+        firstname: '',
+        lastname: '',
+        empcode:"",
+        phone:"",
+        gender:"",
+        date:"",
+        bgroup:'',
+        bgroup:"",
+        email:"",
+        hf:'',
+        relationname:"",
+        designation:"",
+        doj:"",
+        aadharnumber:"",
+        pannumber:"",
+        esi_state:"yes",
+        epf_state:"yes",
+        esi:'',
+        epf:'',
+        uan_number:"",
+        abankac:"",
+        ifsc:"",
+        bname:"",       
+        isReadOnly: "",
+        Menu:[],
+       
+        
+      },
+      methods: {
+         dedectMethod: function(eve){
+           
+          if (eve.target.checked == true) { 
+               this.isReadOnly= false
+          }else  {
+            if(eve.target.id == 'esi'){
+                this.esi = ''
+                this.esi_state= "yes"
+              }else{
+                this.esi_state= "no"
+              }
+
+              if(eve.target.id == 'epf'){
+                this.epf = ''
+                this.epf_state = "yes"
+              }else{
+                this.epf_state = "no"
+              }
+            this.isReadOnly= true
+          }
+
+         },
+
+       addnewEmp: function(){
+
+       var  payload = {
+          user:3,
+          company:this.Token.company.id,
+          first_name:this.firstname,
+          last_name:this.lastname,
+          employee_code:this.empcode,
+          phone:this.phone,
+          contact_number: ' ',
+          gender:this.gender,
+          dob:this.date,
+          blood_group:this.bgroup,
+          bgroup:this.bgroup,
+          email:this.email,
+          husband_Father:this.hf,
+          relation_name:this.relationname,
+          designation:this.designation,
+          date_of_joining:this.doj,
+          aadhar_number:this.aadharnumber,
+          pan_number:this.pannumber,
+          esi_state:this.esi_state,
+          pf_account: this.epf_state,
+          pf_no:" fds",
+          pf_date:"fdsa ",
+          esi:this.esi,
+          basic_salary:"fds ",
+          uan_number:this.uan_number,
+          bank_ac_no:this.abankac,
+          ifsc_code:this.ifsc,
+          bank_name:this.bname,
+          Image:"frwe"
+
+        }        
+       
+
+        const URL = "http://"+$("#base_url").val()+'/api/employee/employee/'
+        axios.post(URL,payload, config)
+        .then(response => {
+            console.log(response)
+
+        }).catch((error) => {
+         console.log(error)
+
+        })
+
+       }
+
+      
+      },
+      mounted(){
+        
+        
+        this.Menu = menuview()
+         
+       
+          
+        }
+    }); 
+    
+    // $('#sampleTable').DataTable(); 
+ 
+</script>
+{% endblock %}
+ 
