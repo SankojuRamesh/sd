@@ -24,37 +24,52 @@
                 <tr>
               
                 <th> first_name   </th>  
-                <th>  last_name   </th> 
-                <th>  husband_Father  </th>  
-                <th> relation_name   </th>  
-                <th>  gender          </th>  
-                <th>  phone number  </th>  
+                <th>  Emp Code   </th> 
                
-                <th>  aadhar_number   </th>  
-                <th>   uan_number      </th> 
-                <th>     pan_number      </th>  
+                <th>salary </th>  
                
-                <th> pf_no           </th> 
+                <th>pf_deductiion </th> 
+                 <th>esi_deduction </th> 
+                <th>DearnessAllowance </th> 
+                 <th>HouseRentAllowance </th>
+                   <th>ConveyanceAllowance </th>
+                   <!-- numpy
+                   artmetic calucatins 
+                   pandas
+                   vectros
+                   nlp -->
+
+                  <th>MedicalAllowance </th>
+                <th>SpecialAllowance </th>
+              <th>Total </th>
+
+
+
+                   
                   <th> Actipns </th>  
                 
 
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="edata in responce_data"  >
-                 
-                  <td> [[edata.first_name]]   </td> 
-                  <td>  [[edata.last_name]]   </td>
-                  <td> [[edata.husband_Father]]  </td> 
-                  <td> [[edata.relation_name]]   </td> 
-                  <td>  [[edata.gender]]          </td> 
-                  <td>  [[edata.phone]] </td> 
-                  
-                  <td>  [[edata.aadhar_number  ]]   </td> 
-                  <td>   [[edata.uan_number  ]]      </td>
-                  <td>     [[edata.pan_number  ]]      </td> 
-                 <td      > [[edata.pf_no ]]</td> 
-                  <td> Show | Delete   </td>
+                <tr v-for="edata in responce_data"  >                 
+                <td > [[edata.first_name]] [[edata.last_name]]</td> 
+                <td>  [[edata.employee_code]]   </td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].BasicSalary ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].pf_deductiion ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].esi_deduction ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].DearnessAllowance ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].HouseRentAllowance ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].ConveyanceAllowance ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].MedicalAllowance ]]</td> 
+                <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].SpecialAllowance ]]</td> 
+                <td  style="color:red" > [[(edata.empsalary=='nosalary')? "---":  7000 ]]</td> 
+
+
+
+                     
+                  <td> [[(edata.empsalary=='nosalary')? "AddSal":  " Show | Delete" ]]   </td>
+                   
                 </tr>
               
               </tbody>
@@ -78,16 +93,17 @@
       data: {
         Menu:[],
         message: '',
-        responce_data: '!'
+        responce_data: []
       },
       methods: {
         getEmpDAta(){
         const URL = "http://"+$("#base_url").val()+'/api/employee/employee/'
         axios.get(URL, config)
         .then(response => {
-          data = response.data  
-          this.responce_data =  data            
-          return responce_obj
+          data = response.data
+          this.responce_data =  data  
+         
+            
         })
         .catch((error) => {
           
@@ -104,8 +120,8 @@
         }
     }); 
     
-    $('#sampleTable').DataTable(); 
- 
+     
+   
 </script>
 {% endblock %}
  

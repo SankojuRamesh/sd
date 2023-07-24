@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics, parsers, permissions, renderers, viewsets
-from employeemanager.models import  Employee
+from employeemanager.models import  EmployeeModel
 from attendencemanager.models import AttendanceModel
 
 
@@ -17,11 +17,11 @@ def  dashboard(request):
 
     return render(request, "dashboard.html") 
 def  EmployeeView(request):
-    Employe_list = Employee.objects.all()    
+    Employe_list = EmployeeModel.objects.all()    
     return render(request, "employee.html", {'data':Employe_list })
 
 def  NewEmployeeView(request):
-    Employe_list = Employee.objects.all()    
+    Employe_list = EmployeeModel.objects.all()    
     return render(request, "newemployee.html", {'data':Employe_list })
 
 
@@ -37,4 +37,10 @@ def  CompanyList(request):
  
  
 def  Salary(request):     
+    return render(request, "salary.html" )
+
+
+
+
+def  Attendence(request):     
     return render(request, "salary.html" )
