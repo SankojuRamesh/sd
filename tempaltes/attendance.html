@@ -13,37 +13,64 @@
       <li class="breadcrumb-item active"><a href="#">Attendance</a></li>
     </ul>
   </div>
-
+<div class="col-md-12">
   <div class="row">
+    <div class="col-4"> </div>
+     <div class="col-2">
+      <label class="form-form-label" for="inputSuccess1">Year</label>
+    <select class="form-control"  v-model="curentYear" @change="getAttendenceList"><option :value="year" v-for="year in years" :key="year">[[ year ]]</option></select>
+  </div>
+  <div class="col-2">
+    <label class="form-form-label" for="inputSuccess1">Month</label>
+  <select class="form-control" v-model="curentMonth" @change="getAttendenceList"><option :value="month.value" v-for="month in months" :key="month.value"   >[[ month.text ]]</option></select>
+</div>
+<div class="col-4"> </div>
+   </div>
+   </div>  
+   <hr>   
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="sampleTable">
+          
+            <table class="table table-hover table-bordered" id="example">
               <thead>
                 <tr>
-               <th>contact_number</th>  
-                <th>created_date </th>  
-                <th>total_days </th> 
-                <th> attendance_days  </th>  
-                <th> month  </th>  
-                <th>  year  </th>  
-                 <th> Action   </th>  
+              
+                <th> Employee Name   </th>  
+                <th> Employee Code   </th> 
+                <th> Created Date  </th> 
+                <th> Month   </th>  
+                <th> Year   </th> 
+                <th> Total Days  </th> 
+                <th> Salary Days </th>    <th> Actions </th>  
                 </tr>
               </thead>
               <tbody>
-                {% for attend in data%}
-                    <tr>
-                    <td>  {{attend.user.name }}   </td> 
-                    <td>  {{attend.created_date  }}   </td> 
-                    <td> {{attend.total_days  }}   </td> 
-                    <td>  {{attend.attendance_days  }}   </td>
-                    <td> {{attend.month  }}  </td> 
-                    <td> {{attend.year  }}   </td> 
-                    <td>  Show | Delete  </td>  
-                    
-                    </tr>
-                {%endfor%}
+                <tr v-for="edata in attendence_data"  >                  
+                  <td>  [[edata.first_name]]  [[edata.last_name]]  </td>
+                  <td> [[edata.employee_code]]  </td> 
+                  <td v-if="edata.emp_attendance " > [[ edata.emp_attendance.created_date ]]   </td>
+                   <td v-else>  ---  </td> 
+
+                  <td v-if="edata.emp_attendance">  [[ edata.emp_attendance.month   ]]   </td> 
+                  <td v-else>  ---  </td> 
+                  <td v-if="edata.emp_attendance">  [[ edata.emp_attendance.year   ]]   </td> 
+                  <td v-else>  ---  </td> 
+                 <td v-if="edata.emp_attendance">  [[ edata.emp_attendance.total_days  ]]   </td> 
+                 <td v-else>  ---  </td> 
+
+                 <td v-if="edata.emp_attendance">  [[ edata.emp_attendance.attendance_days  ]]   </td> 
+                 <td v-else>  ---  </td> 
+                  <td  >
+                     <div class="btn-group">
+                    <button class="btn btn-primary btn-sm" @click = "deleteCompany([[edata.id]])" type="button"><i class="bi bi-trash fs-5"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-reply fs-5"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-share fs-5"></i></button>
+                   
+                  </div>  </td>
+                </tr>
+      
               </tbody>
             </table>
           </div>
@@ -58,29 +85,86 @@
  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
   <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
- 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
   <script>
     new Vue({
       delimiters: ['[[', ']]'], // Use custom 
       el: '#app',
       data: {
+        url: "http://"+$("#base_url").val()+'/api/attendance/attendance/?company=',
+        company: JSON.parse(localStorage.getItem("Token")),
         Menu:[],
         message: '',
-        responce_data: '!'
+        attendence_data: '!',
+        years : [],
+        months:[], 
+        
+
+        curentYear : new Date().getFullYear(),
+        curentMonth:'',
+       
       },
       methods: {
-        
+        getAttendenceList(){ 
+          var url = this.url+this.company.company.id+"&month="+this.curentMonth+"&year="+this.curentYear
+         
+          axios.get(url, config).then(response => {              
+              this.attendence_data =  response.data  
+              console.log(this.attendence_data )
+          }).catch((error) => {
+              // if( error.response.status == 401){
+              //   window.location.replace("http://"+$("#base_url").val()+"/login");
+              // }
+              // console.log('error ' + error.response.status);
+          });
+        },
+
+        YearsMethod() {
+              let years = [];
+              for (var i =this.curentYear-1; i <= this.curentYear+10; i++) {
+                years.push(i );
+              }
+
+              this.years = years;
+              
+            },
+           
       },
       mounted(){
+         
         this.Menu = menuview()
           console.log(this.Menu)
+         
+          this.YearsMethod()
+          monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+          ]
+        const MONTHS_OF_YEAR = () => {
+        return Array(12)
+        .fill(0)
+        .map((_, i) => {
+        return {
+          value: monthNames[i],
+          text: monthNames[i],
+          selected:  monthNames[new Date().getMonth()+1]? true: false,
+        }
+        })
+      }
+      this.months = MONTHS_OF_YEAR()
+       
+      this.curentMonth =  monthNames[new Date().getMonth()]
+
+
+      this.getAttendenceList()
         
+        },
+        computed : {
+   
         }
     }); 
     
  
- 
-
     //alert(getData('/api/employee/employee/'))
  
 </script>

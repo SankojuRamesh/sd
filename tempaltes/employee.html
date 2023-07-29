@@ -78,12 +78,14 @@
       data: {
         Menu:[],
         message: '',
-        responce_data: '!'
+        responce_data: '!',
+        company: JSON.parse(localStorage.getItem("Token")),
       },
       methods: {
         getEmpDAta(){
-        const URL = "http://"+$("#base_url").val()+'/api/employee/employee/'
-        axios.get(URL, config)
+        const URL = "http://"+$("#base_url").val()+'/api/employee/employee/?company='
+        console.log(URL+this.company.company.id)
+        axios.get(URL+this.company.company.id, config)
         .then(response => {
           data = response.data  
           this.responce_data =  data            

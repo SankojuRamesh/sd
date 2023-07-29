@@ -18,7 +18,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)        
-        print(salaryModelSerializer(instance.empsalary, many=True).data)   
+        
         salary_data  =  salaryModelSerializer(instance.empsalary, many=True).data
         
         if salary_data:
@@ -31,8 +31,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
  
 
 
-    def create(self, validated_data):
-        print(validated_data)
+    def create(self, validated_data):       
         phone  = validated_data['phone']
         pwd = str(phone)+"_emp"        
         organization =  validated_data['company']  #Employeemodel.Employee.objects.create(**validated_data)        

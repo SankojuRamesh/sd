@@ -15,3 +15,5 @@ class salaryModelSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
  
+
+ 

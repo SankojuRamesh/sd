@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title">
+  <div>
+    <h1><i class="bi bi-table"></i>Employee Salary </h1>
+
+  </div>
+  <ul class="app-breadcrumb breadcrumb side">
+    <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+    <li class="breadcrumb-item">employee</li>
+    <li class="breadcrumb-item active"><a href="#">Employee Salary</a></li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="tile">
+      <div class="tile-body">
+        <div class="row">
+          <div class="col-3"><label class="form-label">Employee Name</label> <input type="text" readonly="readonly"
+            placeholder="Enter Code" v-model="responce_data.first_name" class="form-control">
+        </div>
+          <div class="col-3">
+            <div class="mb-3"><label class="form-label">Employee Code</label>
+               <input type="text" v-model="responce_data.employee_code"  readonly="readonly"  placeholder="Enter first name" class="form-control"></div>
+          </div>
+
+          <div class="col-3"><label class="form-label">Basic Salary</label> 
+            <input type="number" placeholder="BasicSalary" v-model="responce_data.BasicSalary" @keyup="calculate" class="form-control">
+          </div>
+
+
+          
+          <div class="col-3">
+            <label class="form-label">DearnessAllowance</label> 
+            <input type="number" placeholder="DearnessAllowance "  @keyup="calculate"   v-model="responce_data.da" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <div class="mb-3"> 
+              <label class="form-label">HouseRentAllowance</label> 
+            <input type="number" placeholder="HouseRentAllowance"    @keyup="calculate"  v-model="responce_data.hra"  class="form-control">
+            </div>
+          </div>
+          <div class="col-3">
+            <label class="form-label">ConveyanceAllowance</label>
+             <input type="number" class="form-control"  @keyup="calculate"  v-model="responce_data.ca" placeholder="ConveyanceAllowance"> 
+            </div>
+          <div class="col-3">
+            <label class="form-label">MedicalAllowance</label>
+            <input type="number" class="form-control"   @keyup="calculate"   v-model="responce_data.ma" placeholder="MedicalAllowance"> 
+          
+          
+          </div>
+          <div class="col-3">
+            <label class="form-label">SpecialAllowance</label> 
+            <input type="number" placeholder="SpecialAllowance"  @keyup="calculate"   v-model="responce_data.sa" 
+              class="form-control"></div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <div class="mb-3"><label class="form-label">TaxDeductedatSource</label>
+               <input type="text"  v-model="responce_data.tds" placeholder="TaxDeductedatSource" class="form-control" readonly="readonly" ></div>
+          </div>
+          <div class="col-3"><label class="form-label">Professionaltax</label> 
+            <input type="text"  v-model="responce_data.pft" placeholder="Professionaltax" class="form-control" readonly="readonly" ></div>
+
+          <div class="col-3"><label class="form-label">PF Deductiion <b>  ([[responce_data.pf_persentage]] %)</b></label>
+             <input type="text" v-model="responce_data.pf_amount" placeholder="PF Deductiion" class="form-control"  readonly="readonly" ></div>
+          <div class="col-3"><label class="form-label">Esi Deduction  <b>  ([[responce_data.esi_persentage]] %)</b></label> <input type="texy"
+              placeholder="Esi Deduction" class="form-control" v-model="responce_data.esi_amount"  readonly="readonly" ></div>
+        </div>
+      
+      </div>
+      <div class="row">
+        <div class="col-6"></div>
+ <div class="col-3  "  style="text-align:right">Net Sal: </div>
+<div class="col-3"  style="text-align:center">[[netSal]]</div>
+
+      </div>
+
+
+
+
+
+
+      <div class="tile-footer">
+        <button type="button" class="btn btn-primary" @click="saveSalary"><i
+            class="bi bi-check-circle-fill me-2"></i>Save</button>&nbsp;&nbsp;&nbsp;<a href="#"
+          class="btn btn-secondary"><i class="bi bi-x-circle-fill me-2"></i>Cancel</a></div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+<script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+<script>
+  new Vue({
+    delimiters: ['[[', ']]'], // Use custom 
+    el: '#app',
+    data: {
+      Menu: [],
+      message: '',
+      responce_data: {"first_name":'', 
+                    "last_name":'', 
+                    "employee_code":'',
+                    "BasicSalary":0,
+                    "pf_persentage":0,
+                    "pf_amount" :0,
+                    "esi_persentage":0, 
+                    'esi_amount':0,
+                    "da":0,
+                    "hra":0,
+                    "ca":0,
+                    "ma":0,
+                    "sa":0,
+                     "tds":0,
+                     "pft":0
+                    },
+       totalAlevncees :0,
+       totalDidection:0,
+       netSal:0,
+      empid : localStorage.getItem("salry_user_id"),
+      company: JSON.parse(localStorage.getItem("Token")),
+      BasicSalary:0
+    },
+    methods: {
+      getEmpDAta() {
+        const URL = "http://" + $("#base_url").val() + '/api/employee/employee/'+this.empid
+        axios.get(URL, config)
+          .then(response => {
+            data = response.data
+            // this.responce_data = data 
+            this.responce_data['BasicSalary'] =0 // data.basic_salary
+            this.responce_data['first_name'] = data.first_name
+            this.responce_data['last_name'] = data.last_name
+            this.responce_data['employee_code'] = data.employee_code
+            this.responce_data['pf_persentage'] =  this.company.company.pf_persentage
+            this.responce_data['esi_persentage'] =  this.company.company.esi_persentage
+            // this.responce_data['pf_amount'] = (( this.company.company.pf_persentage / 100) * data.basic_salary) 
+           
+           
+                   
+          })
+          .catch((error) => {
+
+            console.log('error ' + error);
+          });
+      },
+
+      netAmount:function(){
+                  this.totalAlevncees =    parseFloat(this.responce_data["da"]) +  parseFloat(this.responce_data["hra"]) +parseFloat(this.responce_data["hra"])+ parseFloat(this.responce_data["ca"])+ parseFloat(this.responce_data["ma"])+ parseFloat(this.responce_data["sa"])
+                  this.totalDidection =  parseFloat(this.responce_data['pf_amount'])+  parseFloat(this.responce_data['esi_amount'] +parseFloat( this.responce_data['tds']+parseFloat(this.responce_data['pft'])))
+                  this.netSal = parseFloat(this.responce_data['BasicSalary']) + parseFloat(this.totalAlevncees )
+                  var netamount  = this.netSal-  this.totalDidection  
+                  this.netSal =netamount.toFixed(2)            
+                
+                
+                },
+
+      calculate: function(){
+        basic =  this.responce_data['BasicSalary']
+        
+        if(basic){
+          if(basic>50000){
+            this.responce_data['tds'] = (( 2 / 100) * basic).toFixed(2);
+            this.responce_data['pft'] = (( 2 / 100) * basic).toFixed(2);
+          }
+          this.responce_data['pf_amount'] = (( this.company.company.pf_persentage / 100) * basic).toFixed(2);
+
+          this.responce_data['esi_amount'] = (( this.company.company.esi_persentage / 100) * basic).toFixed(2);
+          this.netAmount()
+
+        }else{
+          this.responce_data['pf_amount'] =0
+        }
+      },
+      saveSalary:function(){
+        if(parseFloat(this.netSal) ){
+          var d = new Date().toDateString();
+            sal_dict = {sal_status: " ", updated_date:d,BasicSalary:parseFloat(this.responce_data['BasicSalary']),
+            DearnessAllowance:parseFloat(this.responce_data['da']),HouseRentAllowance:parseFloat(this.responce_data['hra']), 
+            ConveyanceAllowance:parseFloat(this.responce_data['ca']),MedicalAllowance: parseFloat(this.responce_data['ma']), 
+            SpecialAllowance: parseFloat(this.responce_data['sa']) ,TaxDeductedatSource:"00.00",Professionaltax:"00.00",
+            pf_deductiion:parseFloat(this.responce_data['pf_amount']) ,esi_deduction:parseFloat(this.responce_data['esi_amount']),
+            company:this.company.id,employee_code: parseInt(this.empid),netSal:this.netSal }
+        const URL = "http://" + $("#base_url").val() + '/api/salary/salary/'
+        console.log(URL)
+        console.log(sal_dict)
+        axios.post(URL, sal_dict,  config).then(response => {
+        }) .catch((error) => { 
+             console.log('error ' + error);
+        });
+      }
+    }
+
+    },
+    mounted() {      
+      this.Menu = menuview()
+      console.log(this.Menu)
+      this.getEmpDAta()
+      
+   
+    }
+  });
+
+
+
+</script>
+{% endblock %}

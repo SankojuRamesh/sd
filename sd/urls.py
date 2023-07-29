@@ -8,6 +8,7 @@ from django.contrib import admin
 from usermanager import views as userVies
 from frontend import views as frentViews
 from menumanager.views import MenuView
+from salarymanager import views as salView
 
 
 router = DefaultRouter()
@@ -43,13 +44,15 @@ front_urls = [path('', frentViews.dashboard),
           path('employee', frentViews.EmployeeView),
           path('newemployee', frentViews.NewEmployeeView),
           path('login', frentViews.login),
-          path('attendance', frentViews.AttendanceView),
+          path('attendence', frentViews.AttendanceView),
           path('company', frentViews.CompanyList),
           path('salary', frentViews.Salary),
-          path('attendence', frentViews.Attendence), ]
+          path('newsalary', frentViews.NewSalary), 
+         ]
 
 urlpatterns = front_urls+[
         path('api/signin/', userVies.SignInView.as_view(), name='signin'),
+        path('api/downloadexcel/', salView.YourModelViewSet.as_view({'get': 'download_excel'}), name='download-excel'),
         path('admin/', admin.site.urls),
         path('api/', include(router.urls)),
         path('api/user/', include('usermanager.urls')),

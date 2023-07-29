@@ -135,7 +135,7 @@
               {"title":'Atandence Manager', "links": [{"menu": "attendence List", "rout":   "http://"+$("#base_url").val()+"/attendence"}]},
               {"title":'Salary Manager', "links": [{"menu": "Salary List", "rout":   "http://"+$("#base_url").val()+"/salary"}]}
     ] }
-     
+    
     axios.get("http://"+$("#base_url").val()+"/api/menu/?role="+Token.roles, config).then(response => {        
               
     }).catch((error) => {

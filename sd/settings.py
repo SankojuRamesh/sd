@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+from django.conf import settings
+from datetime import timedelta
 
 
 # Quick-start development settings - unsuitable for production
@@ -87,10 +89,13 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'sd.wsgi.application'
 ORS_ORIGIN_ALLOW_ALL=True  
 CORS_ORIGIN_WHITELIST =["http://localhost:5000"]
 CORS_ALLOW_HEADERS = "*"
+
+AUTH_TOKEN_VALIDITY = getattr(settings, 'AUTH_TOKEN_VALIDITY', timedelta(days=1))
 #CORS_ALLOW_CREDENTIALS = True
 # CORS_ALLOW_HEADERS = ['*']
 # CORS_ORIGIN_WHITELIST = ('http://localhost:8000',)

@@ -8,8 +8,7 @@ from .filters import employeeFilter
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        user = self.request.user
-        
+        user = self.request.user        
         queryset = EmployeeModel.objects.filter(company=user.company)
         return queryset
     
