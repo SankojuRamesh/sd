@@ -1,0 +1,235 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title"  >
+    <div>
+      <h1><i class="bi bi-table"></i>Employee list </h1>
+      
+    </div>
+   
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item">employee</li>
+      <li class="breadcrumb-item active"><a href="#">Employee list</a></li>
+    </ul>
+  </div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-4"> </div>
+       <div class="col-2">
+        <label class="form-form-label" for="inputSuccess1">Year</label>
+      <select class="form-control" @change="getEmpDAta"  v-model="curentYear" ><option :value="year" v-for="year in years" :key="year">[[ year ]]</option></select>
+    </div>
+    <div class="col-2">
+      <label class="form-form-label" for="inputSuccess1">Month</label>
+    <select class="form-control" @change="getEmpDAta"  v-model="curentMonth" ><option :value="month.value" v-for="month in months" :key="month.value"   >[[ month.text ]]</option></select>
+  </div>
+  <div class="col-1">
+     <label class="form-form-label" for="inputSuccess1">Total Dyas</label>
+   <input  class="form-control  "  type="" v-model="daysInMonth" >
+  
+  </div>
+  <div class="col-2">
+    <label class="form-form-label" for="inputSuccess1">  </label>
+    <button class="btn  btn-primary form-control"  type="button"  @click="addnewattendence">Save</button> 
+  </div>
+     </div>
+     </div>  
+     <hr> 
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="sampleTable">
+              <thead>
+                <tr>
+                  <th>   <input type="checkbox"> All  </th>  
+                <th> first_name   </th>  
+                <th>  last_name   </th> 
+                <th>  employee code  </th>  
+                <th> Total Days   </th>  
+                <th>  Leaves          </th>  
+               
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="edata in responce_data"  >
+                  <!-- <td  v-if="edata.attendence_exist==false" >   [[edata.attendence_exist.attendance_days]]  <input type="checkbox"  :checked="edata.status" :disabled="edata.attendence_exist==false" >  </td> -->
+                   <td   v-if="edata.attendence_exist==false">  <input type="checkbox" v-model = "edata.status" :checked="edata.status"  >  </td> 
+                   <td v-else>  <input type="checkbox"    :checked="true" :disabled="edata.attendence_exist!=false"  ></td>
+                  <td> [[edata.first_name]]   </td> 
+                  <td>  [[edata.last_name]]   </td>
+                  <td> [[edata.emp_code]]  </td> 
+                  <td>   [[edata.totaldays]]   </td>
+                    <td v-if="edata.attendence_exist!=false">  <input type=""    :value=" [[edata.attendence_exist.attendance_days]] "  :disabled="edata.attendence_exist!=false"   >     </td>  
+                   <td v-else>  <input type=""  v-model="edata.Leaves"     >     </td>  
+                  
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  {% endblock %}
+
+  {% block script %}
+ <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+  <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
+  <script>
+    
+    new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        url: "http://"+$("#base_url").val()+'/api/attendance/attendance/?company=',
+        Menu:[],
+        message: '',
+        responce_data: [],
+        company: JSON.parse(localStorage.getItem("Token")),
+        years : [],
+        months:[], 
+        curentYear : new Date().getFullYear(),
+        curentMonth:'',
+        curentMonthInNumaric:1,
+        daysInMonth : 30,
+        monthNames : ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+          ]
+      },
+      watch: {
+        daysInMonth: function(value) {
+          console.log(value)
+          this.daysInMonth = value
+          // this.getEmpDAta()
+       },
+      },
+      methods: {
+        YearsMethod() {
+              let years = [];
+              for (var i =this.curentYear-1; i <= this.curentYear+10; i++) {
+                years.push(i );
+              }
+
+              this.years = years;
+             
+              
+            }, 
+         getDaysInMonth(year, month) {
+   
+        const date = new Date(year, month - 1, 1); 
+        date.setMonth(date.getMonth() + 1);
+        date.setDate(date.getDate() - 1);
+
+          // Return the day part (the number of days) of the calculated date.
+              this.daysInMonth = date.getDate();
+        }  ,
+        getEmpDAta(){
+          var URL = this.url+this.company.company.id+"&month="+this.curentMonth+"&year="+this.curentYear 
+          var that = this
+          console.log(URL+this.company.company.id)
+          axios.get(URL , config)
+          .then(response => {
+          data = response.data  
+          console.log(data)
+          this.responce_data=[]
+          for(i=0; i<data.length; i++){
+              console.log(data[i] )
+              state = true
+              if(typeof  data[i]['emp_attendance'] == 'object'){
+                state = false
+                
+              }
+              
+              empdata = {
+                "emp_id": data[i]['id'],
+                "status": state,
+                "attendence_exist":data[i]['emp_attendance'],
+                "first_name": data[i]['first_name'],
+                "last_name": data[i]['last_name'],
+                "emp_code": data[i]['employee_code'],
+                "totaldays":that.daysInMonth,
+                "Leaves":0,
+                "attendence_state": true
+
+            }
+              this.responce_data.push(empdata)
+            
+
+          } 
+          $('#sampleTable').ajax.reload(null, false); 
+        }).catch((error) => {
+            
+              console.log('error ' + error);
+          });
+          },
+
+          addnewattendence(){ 
+           for(i=0; i<this.responce_data.length; i++){
+
+           if(this.responce_data[i]['status']){   
+            var url = "http://"+$("#base_url").val()+'/api/attendance/newttendance/'
+             data = {  
+                company:this.company.company.id,
+                employee_code:this.responce_data[i]['emp_id'],
+                sal_status : 'GENERATED',            
+                total_days:this.responce_data[i]['totaldays'],
+                attendance_days:parseInt(this.responce_data[i]['totaldays'])-parseInt(this.responce_data[i]['Leaves']),
+                month :this.curentMonth,
+                year : this.curentYear
+             }
+            
+              axios.post(url,data, config).then(response => {   
+                this.getEmpDAta()
+                   
+              }).catch((error) => {
+                  if( error.response.status == 401){
+                    window.location.replace("http://"+$("#base_url").val()+"/login");
+                  }
+                  console.log('error ' + error.response.status);
+              });
+
+              
+
+                
+              }
+
+
+           }
+          }
+      
+      },
+      mounted(){
+        this.Menu = menuview()
+          console.log(this.Menu)         
+        const MONTHS_OF_YEAR = () => {
+        return Array(12)
+        .fill(0)
+        .map((_, i) => {
+        return {
+          value: this.monthNames[i],
+          text: this.monthNames[i],
+          selected:  this.monthNames[new Date().getMonth()+1]? true: false,
+        }
+        })
+      }
+      this.months = MONTHS_OF_YEAR() 
+         this.curentMonth =  this.monthNames[new Date().getMonth()]
+          this.YearsMethod() 
+          this.getEmpDAta()
+          this.getDaysInMonth(this.curentYear, this.monthNames.indexOf(this.curentMonth)+1)
+        }
+    }); 
+    
+ 
+ 
+</script>
+{% endblock %}
+ 

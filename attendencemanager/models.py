@@ -14,7 +14,7 @@ from employeemanager.models import EmployeeModel
 
 
 class AttendanceModel(models.Model):
-    user         = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user         = models.ForeignKey(User, on_delete=models.CASCADE)
     company     = models.ForeignKey(Company, on_delete=models.CASCADE)
     employee_code   = models.ForeignKey(EmployeeModel, on_delete=models.CASCADE, related_name="attend") 
     sal_status      = models.CharField(max_length=100, default=1)
@@ -23,4 +23,5 @@ class AttendanceModel(models.Model):
     attendance_days  = models.IntegerField()
     month = models.CharField(max_length=100, default=1)
     year = models.CharField(max_length=100, default=1)
+    payslip =   models.CharField(max_length=1000,   default='', null=True, blank=True )
     

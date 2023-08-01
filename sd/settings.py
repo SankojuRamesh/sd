@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'attendencemanager',
     'salarymanager',
     'frontend',
+    'rest_framework_simplejwt.token_blacklist',
    
 
 ]
@@ -148,6 +149,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static',]
+
+
+# MEDIA_DIR = BASE_DIR / 'media'
+# MEDIA_ROOT = MEDIA_DIR
+# MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

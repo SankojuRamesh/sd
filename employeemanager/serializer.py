@@ -9,6 +9,10 @@ from usermanager.serializers import UserRoleSerializer
 from salarymanager.serializer import salaryModelSerializer
 
 User = get_user_model()
+
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()
 class EmployeeSerializer(serializers.ModelSerializer):      
     
     class Meta:

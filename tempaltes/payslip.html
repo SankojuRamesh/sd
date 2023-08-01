@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Payslip</title>
+    <style>
+        /* Styles as before */
+
+        /* Additional styles for allowances and deductions */
+        .section table {
+            /* ... */
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .section table th,
+        .section table td {
+            /* ... */
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .section table th {
+            /* ... */
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="payslip">
+        <!-- ... Employee Details section ... -->
+        <!-- ... Payment Details section ... -->
+
+        <!-- Earnings Section -->
+        <div class="section">
+            <h2>Earnings</h2>
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>Basic Salary</td>
+                    <td>[Basic Salary]</td>
+                </tr>
+                <!-- Add more earnings items as needed -->
+                <tr>
+                    <td>Bonus</td>
+                    <td>[Bonus Amount]</td>
+                </tr>
+                <!-- Add more earnings items as needed -->
+            </table>
+        </div>
+
+        <!-- Allowances Section -->
+        <div class="section">
+            <h2>Allowances</h2>
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>Housing Allowance</td>
+                    <td>[Housing Allowance Amount]</td>
+                </tr>
+                <!-- Add more allowances items as needed -->
+            </table>
+        </div>
+
+        <!-- Deductions Section -->
+        <div class="section">
+            <h2>Deductions</h2>
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td>[Tax Amount]</td>
+                </tr>
+                <!-- Add more deduction items as needed -->
+                <tr>
+                    <td>Health Insurance</td>
+                    <td>[Health Insurance Amount]</td>
+                </tr>
+                <!-- Add more deduction items as needed -->
+            </table>
+        </div>
+
+        <!-- Net Salary Section -->
+        <div class="section">
+            <h2>Net Salary</h2>
+            <p><strong>Total Earnings:</strong> [Total Earnings]</p>
+            <p><strong>Total Allowances:</strong> [Total Allowances]</p>
+            <p><strong>Total Deductions:</strong> [Total Deductions]</p>
+            <p><strong>Net Salary:</strong> [Net Salary]</p>
+        </div>
+    </div>
+</body>
+</html>

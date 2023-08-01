@@ -1,0 +1,115 @@
+<html>
+    <head>
+    <style>
+    table {width: 100%;
+    border-collapse:collapse;
+    border: 1px solid rgb(44, 44, 44);}
+    table td{line-height:25px;padding-left:15px;}
+    table th{background-color:#adadad; color:#363636;}
+    </style> 
+    </head>
+    <body>
+    <table border="1">
+    <tr height="100px" style="background-color:hsl(0, 1%, 65%);color:#ffffff;text-align:center;font-size:24px; font-weight:600;">
+    <td colspan='4'>{{empdata.company}} </td>
+    </tr>
+    <tr height="20px" >
+        <td colspan='3'></td>
+        <td colspan='1'><b>Date: &nbsp;&nbsp; {{empdata.month}} - {{empdata.year}}</b></td>
+    </tr>
+    <tr>
+    <th>Employee Code:</th>
+    <td>{{empdata.employee_code}}</td>
+    <th>Name</th>
+    <td>{{empdata.fname}} {{empdata.lname}}</td>
+    </tr>
+    <!-----2 row--->
+    <tr>
+    <th>Bank</th>
+    <td>{{empdata.bank_name}} </td>
+    <th>Bank A/c No.</th>
+    <td>{{empdata.AC_no }}</td>
+    </tr>
+    <!------3 row---->
+    <tr>
+    <th> </th>
+    <td> </td>
+    <th>Lop Days</th>
+    <td>0</td>
+    </tr>
+    <!------4 row---->
+    <tr>
+    <th>PF No.</th>
+    <td>{{empdata.pf_no}}</td>
+    <th>STD days</th>
+    <td>30</td>
+    </tr>
+    <!------5 row---->
+    <tr>
+    <th>  </th>
+    <td>  </td>
+    <th>Working Days</th>
+    <td>{{empdata.Working_days}}</td>
+    </tr>
+    <!------6 row---->
+    
+    </table>
+    <tr></tr>
+    <br/>
+    <table border="1">
+    <tr>
+    <th >Earnings</th>
+    <th>Amount</th>
+    <th >Deductions</th>
+    <th>Amount</th>
+    </tr>
+    <tr>
+    <td>Basic</td>
+    <td>{{empdata.BasicSalary}}</td>
+    <td>provident fund</td>
+    <td>{{empdata.pf_deductiion}}</td>
+    </tr>
+    <tr>
+    <td>House Rent Allowance</td>
+    <td>{{empdata.HouseRentAllowance}}</td>
+    <td>professional tax</td>
+    <td>{{empdata.Professionaltax}}</td>
+    </tr>
+    <tr>
+    <td>special Allowance</td>
+    <td>{{empdata.SpecialAllowance}}</td>
+    <td>TDA</td>
+    <td>{{empdata.TaxDeductedatSource}}</td>
+    </tr>
+    <tr>
+    <td>conveyance</td>
+    <td>{{empdata.ConveyanceAllowance}} </td>
+    </tr>
+    <tr>
+    <td>Medical   allowance</td>
+    <td>{{empdata.MedicalAllowance}}</td>
+    </tr>
+    <tr>
+    <td>Dearness  Allowance</td>
+    <td>{{empdata.DearnessAllowance}}</td>
+    </tr> 
+    <tr>
+    <td>medical Allowance</td>
+    <td>{{empdata.MedicalAllowance}}</td>
+    </tr>
+    <tr>
+    <th>Gross Earnings</th>
+    <td>{{empdata.GrossEarnings}}</td>
+    <th >Gross Deductions</th>
+    <td>{{empdata.GrossDeductions}}</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td><strong>NET PAY</strong></td>
+    <td>{{empdata.netSal}}</td>
+    <td></td>
+    </tr>
+    </table>
+    </body>
+    </html>
+

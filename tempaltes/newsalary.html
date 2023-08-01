@@ -132,7 +132,7 @@
     },
     methods: {
       getEmpDAta() {
-        const URL = "http://" + $("#base_url").val() + '/api/employee/employee/'+this.empid
+        const URL = "http://" + $("#base_url").val() + '/api/employee/employee/'+this.empid+"/"
         axios.get(URL, config)
           .then(response => {
             data = response.data

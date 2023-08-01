@@ -5,8 +5,10 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics, parsers, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt import views as jwt_views
-import requests
+from django.shortcuts import HttpResponse
+from rest_framework.views import APIView
 
+ 
 from . import models, serializers
 
 
@@ -35,3 +37,7 @@ class UserRoleListView(generics.ListAPIView):
     serializer_class = serializers.UserRoleSerializer
     permission_classes = [permissions.IsAuthenticated ]
 
+def Logout(request):
+    print(dir(request.user))
+    # RefreshToken(token).blacklist()
+    return HttpResponse({})

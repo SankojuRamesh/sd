@@ -7,4 +7,4 @@ from django_filters import rest_framework as filters
 class AttendanceFilter(filters.FilterSet):
     class Meta:
         model =AttendanceModel
-        fields =['company', 'employee_code',"user"]
+        fields =['company', 'employee_code' ]

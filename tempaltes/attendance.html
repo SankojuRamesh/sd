@@ -4,9 +4,10 @@
 {%load static%}
 <div class="app-title">
     <div>
-      <h1><i class="bi bi-table"></i>Attendance DAta</h1>
+      <h1><i class="bi bi-table"></i>Attendance </h1>
+     
       
-    </div>
+    </div> <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#myModal">New</button>
     <ul class="app-breadcrumb breadcrumb side">
       <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
       <li class="breadcrumb-item">employee</li>
@@ -62,13 +63,18 @@
 
                  <td v-if="edata.emp_attendance">  [[ edata.emp_attendance.attendance_days  ]]   </td> 
                  <td v-else>  ---  </td> 
-                  <td  >
-                     <div class="btn-group">
-                    <button class="btn btn-primary btn-sm" @click = "deleteCompany([[edata.id]])" type="button"><i class="bi bi-trash fs-5"></i></button>
+                  <td   v-if="edata.emp_attendance ">
+                     <div class="btn-group" >
+                       <a href="#"  @click = "downloadpayslip([[edata.emp_attendance.payslip]])">Download Payslip</a>
+                    <!-- <button class="btn btn-primary btn-sm" @click = "deleteCompany([[edata.id]])" type="button"><i class="bi bi-trash fs-5"></i></button>
                     <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-reply fs-5"></i></button>
-                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-share fs-5"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-share fs-5"></i></button> -->
                    
-                  </div>  </td>
+                  </div> 
+                  <td v-else> <a  href="/newattendence"  >  Add Attendance  </a> </td> 
+                
+                
+                </td>
                 </tr>
       
               </tbody>
@@ -111,12 +117,12 @@
          
           axios.get(url, config).then(response => {              
               this.attendence_data =  response.data  
-              console.log(this.attendence_data )
+              
           }).catch((error) => {
-              // if( error.response.status == 401){
-              //   window.location.replace("http://"+$("#base_url").val()+"/login");
-              // }
-              // console.log('error ' + error.response.status);
+              if( error.response.status == 401){
+                window.location.replace("http://"+$("#base_url").val()+"/login");
+              }
+              console.log('error ' + error.response.status);
           });
         },
 
@@ -129,7 +135,37 @@
               this.years = years;
               
             },
-           
+
+            downloadpayslip(slip){
+             
+              var url = "http://"+$("#base_url").val()+'/'+slip
+              window.open(url, '_blank');
+            },
+            addnewattendence(eid){
+              console.log(eid[0][0])
+              var url = "http://"+$("#base_url").val()+'/api/attendance/newttendance/'
+             data = { 
+                user : eid[0][0],
+                company    :this.company.company.id,
+                employee_code  :eid[0][0],
+                sal_status    : 'GENERATED'  ,            
+                total_days    :30,
+                attendance_days : 20,
+                month :this.curentMonth,
+                year : this.curentYear
+            }
+              axios.post(url,data, config).then(response => {              
+                 this.getAttendenceList()
+                console.log(response )
+              }).catch((error) => {
+                  if( error.response.status == 401){
+                    window.location.replace("http://"+$("#base_url").val()+"/login");
+                  }
+                  console.log('error ' + error.response.status);
+              });
+
+              },
+
       },
       mounted(){
          
