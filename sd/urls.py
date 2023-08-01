@@ -9,7 +9,10 @@ from usermanager import views as userVies
 from frontend import views as frentViews
 from menumanager.views import MenuView
 from salarymanager import views as salView
-
+from django.conf import settings
+from django.conf.urls.static import static
+from employeemanager.views import DownloadViewSet, FileUploadView
+ 
 
 router = DefaultRouter()
 # router.register('users', UserViewSet)
@@ -45,16 +48,22 @@ front_urls = [path('', frentViews.dashboard),
           path('newemployee', frentViews.NewEmployeeView),
           path('login', frentViews.login),
           path('attendence', frentViews.AttendanceView),
+          path('newattendence', frentViews.NewAttendanceView),
           path('company', frentViews.CompanyList),
           path('salary', frentViews.Salary),
-          path('newsalary', frentViews.NewSalary), 
+          path('newsalary', frentViews.NewSalary),  
+
          ]
 
 urlpatterns = front_urls+[
+     path('api/download/', DownloadViewSet.as_view() ),
+      path('api/upload/', FileUploadView.as_view(), name='file-upload'),
         path('api/signin/', userVies.SignInView.as_view(), name='signin'),
-        path('api/downloadexcel/', salView.YourModelViewSet.as_view({'get': 'download_excel'}), name='download-excel'),
+        # path('api/downloadexcel/', salView.YourModelViewSet.as_view({'get': 'download_payslip'}), name='download-excel'),
+        path('logout/', userVies.Logout, name='loout'),
         path('admin/', admin.site.urls),
         path('api/', include(router.urls)),
+        
         path('api/user/', include('usermanager.urls')),
         path('api/employee/', include('employeemanager.urls')),
         path('api/salary/', include('salarymanager.urls')),
@@ -65,4 +74,4 @@ urlpatterns = front_urls+[
         path('api/menu/', MenuView.as_view()),
     
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
