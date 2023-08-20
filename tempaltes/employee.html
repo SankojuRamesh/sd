@@ -14,8 +14,14 @@
       <li class="breadcrumb-item active"><a href="#">Employee list</a></li>
     </ul>
   </div>
-<button class="btn btn-primary" type="button ">Download</button>
-    <button class="btn btn-primary" type="button"  >Upload Employes</button>
+<a href="/api/download/" class="btn btn-primary" type="button ">Shample Format</a>
+   
+<!-- <input type="file"   @change="onFileChange" name="Bulk Upload"  />  -->
+<button  class="btn btn-primary" style="cursor:pointer" @click="btn">Bulk Import</button>
+<input type="file"  @change="onFileChange"  id="inputField" style="display:none">
+<button   class="btn btn-primary" style="cursor:pointer" @click="exportfile">Export</button>
+<button   class="btn btn-primary" style="cursor:pointer" @click="idcards">Id cards</button>
+  
   <div class="row">
     <div class="col-md-12">
       <div class="tile">
@@ -24,39 +30,54 @@
             <table class="table table-hover table-bordered" id="sampleTable">
               <thead>
                 <tr>
-              
-                <th> first_name   </th>  
-                <th>  last_name   </th> 
+                  <th> Sl No :  </th>  
+                <th> name   </th>  
+               
+                <th>  contact_number  </th>  
                 <th>  husband_Father  </th>  
                 <th> relation_name   </th>  
                 <th>  gender          </th>  
-                <th>  contact_number  </th>  
-               
                 <th>  aadhar_number   </th>  
-                <th>   uan_number      </th> 
+             
                 <th>     pan_number      </th>  
-               
-                <th> pf_no           </th> 
+              
+                <th> uan number            </th> 
+                  <th>     esi_number      </th>  
                   <th> Actipns </th>  
                 
 
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="edata in responce_data"  >
+                <tr v-for="(edata, index) in responce_data"  >
+                  <th> [[index+1]]   </th>  
+                  <td class="expand-button"> [[edata.first_name]]  </td> 
                  
-                  <td> [[edata.first_name]]   </td> 
-                  <td>  [[edata.last_name]]   </td>
+                  <td>  [[edata.phone]] </td> 
                   <td> [[edata.husband_Father]]  </td> 
                   <td> [[edata.relation_name]]   </td> 
                   <td>  [[edata.gender]]          </td> 
-                  <td>  [[edata.contact_numbe]] </td> 
+                
                   
                   <td>  [[edata.aadhar_number  ]]   </td> 
-                  <td>   [[edata.uan_number  ]]      </td>
+                  
                   <td>     [[edata.pan_number  ]]      </td> 
                  <td      > [[edata.pf_no ]]</td> 
-                  <td> Show | Delete   </td>
+                 <td      > [[edata.esi_no ]]</td> 
+                  <td>  
+                   
+                  
+                    
+                     <div class="btn-group">  
+                      <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-reply fs-5"></i></button>
+                      <button class="btn btn-primary btn-sm" type="button" @click="deleteemp"  :id="edata.id"  ><i class="bi bi-trash fs-5"></i></button>
+                    
+                      <a class="btn btn-primary btn-sm" type="button"   :href="'/famaly?emiid='+edata.id"><i class="bi bi-share fs-5" ></i></a>
+                     
+                    </div>
+                    
+                    
+                    </td>
                 </tr>
               
               </tbody>
@@ -67,13 +88,35 @@
     </div>
   </div> 
  
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          hihi
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   {% endblock %}
 
   {% block script %}
- <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+  
+
   <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
   <script>
+     
     new Vue({
       delimiters: ['[[', ']]'], // Use custom 
       el: '#app',
@@ -84,6 +127,65 @@
         company: JSON.parse(localStorage.getItem("Token")),
       },
       methods: {
+        famaly(empid){
+          
+          alert(empid)
+
+        },
+        btn(){
+         
+          document.getElementById('inputField').click();
+          
+
+        },
+        exportfile(){
+
+        },
+        deleteemp(e){  
+          var result = confirm("Are you sure you want to delete this Employee?");
+    if (result) {
+        // Code to delete the item
+   
+          const URL = "http://"+$("#base_url").val()+'/api/employee/employee/'+ e.target.id+"/"
+          axios.delete(URL , config)
+          .then(response => {
+            location.reload();
+
+          }).catch(error => {
+        // Handle errors (if any)
+        console.error('Error uploading file:', error);
+      });
+
+    } else {
+        // User chose not to delete
+    }   
+             
+        },
+      onFileChange(event) {
+      
+      // Save the selected file to the component's data
+      this.selectedFile = event.target.files[0];
+       
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      formData.append('company', this.company.company.id);
+
+      axios.post('/api/upload/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+        }
+      })
+      .then(response => {
+        location.reload()
+        // Handle the response from the server (if needed)
+        console.log('File uploaded successfully:', response.data);
+      })
+      .catch(error => {
+        // Handle errors (if any)
+        console.error('Error uploading file:', error);
+      });
+    },
         getEmpDAta(){
         const URL = "http://"+$("#base_url").val()+'/api/employee/employee/?company='
         console.log(URL+this.company.company.id)
@@ -98,18 +200,25 @@
             console.log('error ' + error);
         });
         },
+
+        idcards(){
+
+            
+
+        }
       
       },
       mounted(){
         this.Menu = menuview()
-          console.log(this.Menu)
+          
           this.getEmpDAta()
+          console.log(this.company)
           
         }
     }); 
     
     $('#sampleTable').DataTable(); 
- 
+  
 </script>
 {% endblock %}
  

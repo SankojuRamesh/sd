@@ -7,12 +7,24 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from usermanager.serializers import UserRoleSerializer
 from salarymanager.serializer import salaryModelSerializer
+import pandas as pd
 
 User = get_user_model()
 
 
 class FileUploadSerializer(serializers.Serializer):
     file = serializers.FileField()
+
+ 
+
+
+class EmployeeFmalaySerializer(serializers.ModelSerializer):      
+    
+    class Meta:
+        model = Employeemodel.EmpFamaly
+        fields ="__all__"
+    
+
 class EmployeeSerializer(serializers.ModelSerializer):      
     
     class Meta:
@@ -28,12 +40,11 @@ class EmployeeSerializer(serializers.ModelSerializer):
         if salary_data:
             data =  salary_data
         else:            
-            data = "nosalary"         
-        representation.update({"empsalary":  data})        
-        return representation
-    
- 
+            data = "nosalary"  
+        representation.update({"empsalary":  data})    
+       
 
+        return representation
 
     def create(self, validated_data):       
         phone  = validated_data['phone']

@@ -13,11 +13,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
   </head>
   <body class="app sidebar-mini" >
     <input type="hidden" value="{{ request.get_host }}" id="base_url">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
+    <header class="app-header"><a class="app-header__logo" href="#">Admin</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -67,9 +69,9 @@
         <!-- User Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-bs-toggle="dropdown" aria-label="Open Profile Menu"><i class="bi bi-person fs-4"></i></a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
-            <li><a class="dropdown-item" href="page-user.html"><i class="bi bi-gear me-2 fs-5"></i> Settings</a></li>
-            <li><a class="dropdown-item" href="page-user.html"><i class="bi bi-person me-2 fs-5"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="page-login.html"><i class="bi bi-box-arrow-right me-2 fs-5"></i> Logout</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 fs-5"></i> Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2 fs-5"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2 fs-5"></i> Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -78,12 +80,10 @@
     <div id="app">
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Image">
-        <div>
-          <p class="app-sidebar__user-name">John Doe</p>
-          <p class="app-sidebar__user-designation">Frontend Developer</p>
-        </div>
-      </div>
+    
+      <center>  <img   src="{% static 'images/freelogo.png'%}" alt="User Image"></center>
+        
+      
       <ul class="app-menu">
        
  
@@ -114,35 +114,52 @@
    
  
    <script src="{% static 'js/jquery-3.7.0.min.js'%}"></script>  
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     
+    
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   
     <script>
-    
+     
+   
      Token = JSON.parse(localStorage.getItem('Token'))      
     const config = {
         headers: { Authorization: `Bearer ${Token.access}` }
     };
 
   function menuview(){
-    rolse_menu ={"Superadmin":[{"title":'Company Manager', "links": [{"menu": "Company List", "rout":   "http://"+$("#base_url").val()+"/company"}]},
+    rolse_menu ={
+      "Superadmin":[{"title":'Company Manager', "links": [{"menu": "Company List", "rout":   "http://"+$("#base_url").val()+"/company"}]},
                 {"title":'settings', "link": [{"menu": "Company List", "rout":   "http://"+$("#base_url").val()+"/settings"}]}],
-     "Admin":[{"title":'Employee Manager', "links": [{"menu": "employee List", "rout":   "http://"+$("#base_url").val()+"/employee"},{"menu": "New Employee", "rout":   "http://"+$("#base_url").val()+"/newemployee"}]},
-
+      "Admin":[
+              {"title":'Employee Manager', "links":
+                 [{"menu": "employee List", "rout":   "http://"+$("#base_url").val()+"/employee"},{"menu": "New Employee", "rout":   "http://"+$("#base_url").val()+"/newemployee"}]},
+                 {"title":'Salary Manager', "links": [{"menu": "Salary List", "rout":   "http://"+$("#base_url").val()+"/salary"}]},
               {"title":'Atandence Manager', "links": [{"menu": "attendence List", "rout":   "http://"+$("#base_url").val()+"/attendence"},{"menu": "new attendence", "rout":   "http://"+$("#base_url").val()+"/newattendence"}]},
-              {"title":'Salary Manager', "links": [{"menu": "Salary List", "rout":   "http://"+$("#base_url").val()+"/salary"}]}
-    ] }
+              {"title":'Setting Manager', "links": [{"menu": "Configaration", "rout":   "http://"+$("#base_url").val()+"/companysettings"}]},
+              ],
+      "Employee" : [
+      {"title":'Atandence Manager', "links": [{"menu": "attendence List", "rout":   "http://"+$("#base_url").val()+"/"} ]},
+      {"title":'Famaly Manager', "links": [{"menu": "Famaly List", "rout":   "http://"+$("#base_url").val()+"/"} ]},
+      {"title":'Paslip Manager', "links": [{"menu": "payslips List", "rout":   "http://"+$("#base_url").val()+"/"} ]},
+      {"title":'Settings ', "links": [{"menu": "Setting List", "rout":   "http://"+$("#base_url").val()+"/"} ]},
+             
+
+      ]
+            }
     
     axios.get("http://"+$("#base_url").val()+"/api/menu/?role="+Token.roles, config).then(response => {        
               
     }).catch((error) => {
-      window.location.replace("http://"+$("#base_url").val()+"/login");   
+      window.location.replace("http://"+$("#base_url").val()+"/home");   
                
    });
 
+   
     return rolse_menu[Token.roles] 
 
 

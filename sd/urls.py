@@ -47,17 +47,22 @@ front_urls = [path('', frentViews.dashboard),
           path('employee', frentViews.EmployeeView),
           path('newemployee', frentViews.NewEmployeeView),
           path('login', frentViews.login),
+            path('home', frentViews.home),
           path('attendence', frentViews.AttendanceView),
           path('newattendence', frentViews.NewAttendanceView),
           path('company', frentViews.CompanyList),
           path('salary', frentViews.Salary),
           path('newsalary', frentViews.NewSalary),  
+           path('famaly', frentViews.EmpFamaly),  
+          path('companysettings', frentViews.CompanySettingsview),  
+
+          
 
          ]
 
 urlpatterns = front_urls+[
      path('api/download/', DownloadViewSet.as_view() ),
-      path('api/upload/', FileUploadView.as_view(), name='file-upload'),
+        path('api/upload/', FileUploadView.as_view(), name='file-upload'),
         path('api/signin/', userVies.SignInView.as_view(), name='signin'),
         # path('api/downloadexcel/', salView.YourModelViewSet.as_view({'get': 'download_payslip'}), name='download-excel'),
         path('logout/', userVies.Logout, name='loout'),

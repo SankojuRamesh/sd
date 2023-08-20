@@ -102,7 +102,7 @@
         company: JSON.parse(localStorage.getItem("Token")),
         Menu:[],
         message: '',
-        attendence_data: '!',
+        attendence_data: '',
         years : [],
         months:[], 
         
@@ -120,7 +120,7 @@
               
           }).catch((error) => {
               if( error.response.status == 401){
-                window.location.replace("http://"+$("#base_url").val()+"/login");
+                window.location.replace("http://"+$("#base_url").val()+"/home");
               }
               console.log('error ' + error.response.status);
           });
@@ -173,7 +173,7 @@
           console.log(this.Menu)
          
           this.YearsMethod()
-          monthNames = ["January", "February", "March", "April", "May", "June",
+          monthNames = [  "January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"
           ]
         const MONTHS_OF_YEAR = () => {
@@ -192,7 +192,7 @@
       this.curentMonth =  monthNames[new Date().getMonth()]
 
 
-      this.getAttendenceList()
+      // this.getAttendenceList()
         
         },
         computed : {

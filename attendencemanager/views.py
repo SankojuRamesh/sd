@@ -25,12 +25,18 @@ class AttendanceViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'put', 'delete']
 
 
+
+
     def create(self, request, *args, **kwargs):
         # print(request.data.get('sal_status'))
         saldata_data = request.data.copy()
         today_date = datetime.today().strftime('%Y-%m-%d')
+        
         empdata = salaryModel.objects.get(employee_code_id=saldata_data['employee_code'] )
-       
+        
+        print("+++++++++++++++++++++++++++++*++++++++++++++")
+        print(float(empdata.MedicalAllowance+empdata.SpecialAllowance)  )
+        print("+++++++++++++++++++++++++++++*******++++++++++++++")
         empsal = {
              "company"     :empdata.company,
             "employee_code" :empdata.employee_code.employee_code,
@@ -55,12 +61,13 @@ class AttendanceViewSet(viewsets.ModelViewSet):
             "attendance_days":saldata_data['attendance_days'],
             "month":saldata_data['month'],
             "year":saldata_data['year'],
-            "GrossDeductions":float(empdata.TaxDeductedatSource)+float(empdata.Professionaltax)+float(empdata.pf_deductiion+empdata.esi_deduction) ,
-            "GrossEarnings":float(empdata.DearnessAllowance)+float(empdata.HouseRentAllowance+empdata.HouseRentAllowance)+float(empdata.ConveyanceAllowance)+float(empdata.MedicalAllowance+empdata.SpecialAllowance),
-            'netSal' :empdata.netSal,
+            "GrossDeductions":float(empdata.TaxDeductedatSource)+float(empdata.Professionaltax)+float(empdata.pf_deductiion)+float(empdata.esi_deduction) ,
+            "GrossEarnings":float(empdata.DearnessAllowance)+float(empdata.HouseRentAllowance)+float(empdata.HouseRentAllowance)+ 
+            float(empdata.ConveyanceAllowance)+float(empdata.MedicalAllowance)+float(empdata.SpecialAllowance),
+            # 'netSal' :empdata.netSal,
             
         } 
- 
+         
         html_message = render_to_string('slaray_slip.html', {'empdata': empsal})
         
          

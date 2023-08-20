@@ -9,7 +9,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'employee', views.EmployeeViewSet  )
- 
+router.register(r'employeefamaly', views.EmployeeFamalyViewSet  )
 
  
 

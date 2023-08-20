@@ -57,3 +57,7 @@ class YourModelViewSet(viewsets.ModelViewSet):
     #         response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
 
     #     return response
+
+
+
+

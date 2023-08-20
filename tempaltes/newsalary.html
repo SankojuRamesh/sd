@@ -182,6 +182,7 @@
         }
       },
       saveSalary:function(){
+        
         if(parseFloat(this.netSal) ){
           var d = new Date().toDateString();
             sal_dict = {sal_status: " ", updated_date:d,BasicSalary:parseFloat(this.responce_data['BasicSalary']),
@@ -189,7 +190,7 @@
             ConveyanceAllowance:parseFloat(this.responce_data['ca']),MedicalAllowance: parseFloat(this.responce_data['ma']), 
             SpecialAllowance: parseFloat(this.responce_data['sa']) ,TaxDeductedatSource:"00.00",Professionaltax:"00.00",
             pf_deductiion:parseFloat(this.responce_data['pf_amount']) ,esi_deduction:parseFloat(this.responce_data['esi_amount']),
-            company:this.company.id,employee_code: parseInt(this.empid),netSal:this.netSal }
+            company:this.company.company.id,employee_code: parseInt(this.empid),netSal:this.netSal }
         const URL = "http://" + $("#base_url").val() + '/api/salary/salary/'
         console.log(URL)
         console.log(sal_dict)

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-class CompanySerializer(serializers.ModelSerializer):
+class CompanySerializer(serializers.ModelSerializer): 
     class Meta:
         model = CompanyModels.Company
         fields = '__all__'

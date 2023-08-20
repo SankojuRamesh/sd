@@ -10,9 +10,12 @@ import pdfkit
 # Create your views here.
 
 
+def home(request):
+    return render(request, 'frontend/index.html')
+
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'frontend/index.html')
 def  dashboard(request):
     if not bool(request.user and request.user.is_authenticated) :
         ...
@@ -48,3 +51,14 @@ def  NewSalary(request):
     return render(request, "newsalary.html" , data)
 
  
+
+def  EmpFamaly(request): 
+    data = {"user":request.GET.get('user')   } 
+    return render(request, "famaly.html" , data)
+
+
+
+
+def CompanySettingsview(request):
+    data = {"user":request.GET.get('user')   } 
+    return render(request, "companysettings.html" , data)
