@@ -9,7 +9,7 @@ class Company(models.Model):
     address = models.TextField()
     phone = models.CharField(max_length=20)
     email = models.EmailField()
-    logo = models.CharField(max_length=200, null=True, blank=True, default='logo/freelogo.png')
+    logo = models.ImageField(upload_to='comapanydocs/', default='logo/freelogo.png')
     pf_persentage = models.CharField(max_length=12, null=True, blank=True, default='12')
     esi_persentage = models.CharField(max_length=12, null=True, blank=True, default='12')
 

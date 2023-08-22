@@ -127,13 +127,38 @@ class FileUploadView(APIView):
         return Response({'message': 'File uploaded successfully.'}, status=status.HTTP_201_CREATED) 
    
 
+class EmployeeExport(APIView):
+    def get(self, request): 
+        companyid = request.GET.get('company')
+        employee = EmployeeModel.objects.all()
+        
+        if not employee:
+            return HttpResponse("Employes not found", status=404)
+
+        data_frame = pd.DataFrame.from_records(employee.values())
+        file_path = 'employee_data.csv'
+
+        data_frame.to_csv(file_path, index=False)
+        response = HttpResponse(  content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename="employee_data.csv"'
+        file_path = os.path.join(settings.MEDIA_ROOT, file_path)  
+        
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as file:
+                response = HttpResponse(file.read(), content_type='application/octet-stream')
+                response['Content-Disposition'] = f'attachment; filename="employee_data.csv"'
+                return response
+        else:
+            return HttpResponse("File not found", status=404)
+        
+
 
 class EmployeeIdcardsviewSet(APIView):
 
     def get(self, request): 
         companyid = request.GET.get('company')
         employee = EmployeeModel.objects.filter(company =companyid )
-        print(employee)
+        
         if not employee:
             return HttpResponse("Employes not found", status=404)
         

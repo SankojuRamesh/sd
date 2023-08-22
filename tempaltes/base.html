@@ -81,7 +81,7 @@
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
     
-      <center>  <img   src="{% static 'images/freelogo.png'%}" alt="User Image"></center>
+      <center>  <img  id="logo"  src="{% static 'images/freelogo.png'%}" alt="User Image"></center>
         
       
       <ul class="app-menu">
@@ -130,6 +130,8 @@
     const config = {
         headers: { Authorization: `Bearer ${Token.access}` }
     };
+
+    $("#logo").attr('src',Token.company.logo)
 
   function menuview(){
     rolse_menu ={

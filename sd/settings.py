@@ -178,7 +178,9 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'nonfield',
 }
 
-
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=2),  # Adjust as needed
+}
 # Swagger settings
 
 SWAGGER_SETTINGS = {
