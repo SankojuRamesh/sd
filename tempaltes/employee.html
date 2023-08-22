@@ -20,7 +20,8 @@
 <button  class="btn btn-primary" style="cursor:pointer" @click="btn">Bulk Import</button>
 <input type="file"  @change="onFileChange"  id="inputField" style="display:none">
 <button   class="btn btn-primary" style="cursor:pointer" @click="exportfile">Export</button>
-<button   class="btn btn-primary" style="cursor:pointer" @click="idcards">Id cards</button>
+<!-- <button   class="btn btn-primary" style="cursor:pointer" @click="idcards">Id cards</button> -->
+<a  :href="DownloadEmployeeIdCards"  class="btn btn-primary" type="button ">Download ID Cards</a>
   
   <div class="row">
     <div class="col-md-12">
@@ -123,8 +124,9 @@
       data: {
         Menu:[],
         message: '',
-        responce_data: '!',
+        responce_data: '',
         company: JSON.parse(localStorage.getItem("Token")),
+        DownloadEmployeeIdCards:""
       },
       methods: {
         famaly(empid){
@@ -202,8 +204,17 @@
         },
 
         idcards(){
-
-            
+        const URL = "http://"+$("#base_url").val()+'/api/idcards/?company='
+        console.log(URL+this.company.company.id)
+        axios.get(URL+this.company.company.id, config)
+        .then(response => {
+          
+        })
+        .catch((error) => {
+          
+            console.log('error ' + error);
+        });
+                 
 
         }
       
@@ -212,6 +223,7 @@
         this.Menu = menuview()
           
           this.getEmpDAta()
+          this.DownloadEmployeeIdCards = "http://"+$("#base_url").val()+'/api/idcards/?company='+this.company.company.id
           console.log(this.company)
           
         }

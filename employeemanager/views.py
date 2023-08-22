@@ -15,6 +15,9 @@ import os
 from rest_framework import status
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+
+from django.template.loader import render_to_string
+import pdfkit  
  
 User = get_user_model()
 
@@ -122,3 +125,32 @@ class FileUploadView(APIView):
                
                  
         return Response({'message': 'File uploaded successfully.'}, status=status.HTTP_201_CREATED) 
+   
+
+
+class EmployeeIdcardsviewSet(APIView):
+
+    def get(self, request): 
+        companyid = request.GET.get('company')
+        employee = EmployeeModel.objects.filter(company =companyid )
+        print(employee)
+        if not employee:
+            return HttpResponse("Employes not found", status=404)
+        
+        html_string = render_to_string('table.html', {"data":employee})
+
+        pdfkit.from_string(html_string, 'out.pdf')
+        company = request.GET.get('company') 
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="out.pdf"'
+        file_path = os.path.join(settings.MEDIA_ROOT, "out.pdf")  
+        
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as file:
+                response = HttpResponse(file.read(), content_type='application/octet-stream')
+                response['Content-Disposition'] = f'attachment; filename=out.pdf'
+                return response
+        else:
+            return HttpResponse("File not found", status=404)
+
+

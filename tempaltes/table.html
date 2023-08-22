@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style> 
+</style>
+</head>
+<body  > 
+  {%for employedata in data %} 
+<div class="container">
+  
+ <!---------------------------------------------------------------------------------------------->
+
+
+ <br>
+<div class="row    ">
+<div class="col-12 text-center ">
+   <h4><b>Letter of Appointment</b></h4>
+   </div>
+</div>
+ 
+ <div class="row  border border-dark">
+    <div class="col-6  border border-dark  text-center">
+<b >Name & Address of Establishment</b>
+    </div>
+    <div class="col-6  border border-dark text-center " style="height: 40px;padding:30px 0;">
+      fdsfdsafds
+   </div>
+ </div>
+
+ <div class="row"   style="height: 40px  " > 
+       <div class="col-6  border border-dark align-baseline "><b>Name :</b> {{employedata.first_name}} </div>
+       <div class="col-6  border border-dark align-baseline "> <b>DOB :</b>   {{employedata.dob}}</div>  
+ </div>
+ <div class="row"   style="height: 40px;  " > 
+       <div class="col-6  border border-dark align-baseline  "><b>Appionted as </b>: {{employedata.designation}}    </div>
+       <div class="col-6  border border-dark  align-baseline "><b>Joining Date :</b>   {{employedata.date_of_joining}}  </div>  
+ </div>
+ <div class="row"  > 
+  <div class="col-12  border border-dark align-baseline "><b>The Place of working as follow </b>
+  <div class="row  text-center "  > 
+     
+    <div class="col-6   ">  
+       
+        <div class="row"  > 
+
+          <div class="col-4  border border-dark align-baseline "><b>  Brabch Code</b></div> <div class="col-8  border border-dark align-baseline ">
+             &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; </div>
+         
+         
+          
+          </div>
+          <div class="row"  >
+          <div class="col-4  border border-dark align-baseline "> <b>  Branch name</b></div> <div class="col-8  border border-dark align-baseline "> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</div>
+        </div>
+
+        <div class="row"  >
+          <div class="col-4  border border-dark align-baseline "> <b> Center name</b></div> <div class="col-8  border border-dark align-baseline ">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</div>
+        </div>
+
+        <div class="row"  >
+          <div class="col-4  border border-dark align-baseline "> <b> Agent name</b></div> <div class="col-8  border border-dark align-baseline ">&nbsp; &nbsp;&nbsp; &nbsp; </div>
+        </div>  
+    </div> 
+    <div class="col-6    "> 
+      <div class="row"   > 
+       <div class="col-3  border border-dark align-baseline ">  <b> PAN No</b></div> 
+       <div class="col-9  border border-dark align-baseline "> {{employedata.pan_number}} </div>
+
+
+      </div>
+      <div class="row"   > 
+        <div class="col-3  border border-dark align-baseline ">  <b> Uan No</b></div>
+         <div class="col-9  border border-dark align-baseline ">{{employedata.uan_number}}  </div>
+ 
+ 
+       </div>
+       <div class="row"   > 
+        <div class="col-3  border border-dark align-baseline ">  <b> Aadhar No</b></div>
+         <div class="col-9  border border-dark align-baseline "> {{employedata.aadhar_number}} </div>
+ 
+ 
+       </div>
+    
+    </div>
+    
+  </div>
+
+
+
+
+  <div class="row ">
+   <div class="col-12  align-baseline" style="height: 50px;">
+    
+ <p  class="align-baseline" >
+ Your liable to be transferred to any other centere/Branch at the discretion or the Company.
+ Wages are apyable according to Government Oreders and agreement with Registered Unions
+  
+  <br>
+ </p>
+
+     
+   </div>
+
+  </div>
+
+
+  <div class="row " style="height:60px; ">
+   
+      <div  class="col-8" style="height: 60px; ">
+ 
+      </div>
+     <div class="col-4 " >
+      <p style="text-align: right; bottom: 0px; margin-top: 10px;"> <b>Proprietor/Authorside Person</b> &nbsp;&nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp; </p>
+    
+     </div>
+    
+    
+
+  </div>
+</div> 
+</div>
+<!------------------------------Identicart--------------------------->
+ <br>
+<div class="row text-center">
+   
+    <div class="col-4"></div>
+    <div class="col-4">
+      <span>Form-E(sec rule 41)</span>
+       <h5><b>IDENTIFY CARD</b></h5>
+    </div>
+    <div class="col-4"> </div>
+</div>
+
+<div class="row  text-center" style="height: 60px;">
+   
+  <div class="col-5  border border-dark text-center"><b>Name and Address of  Establishment : </b> </div>
+  
+  <div class="col-7  border border-dark">  {{employedata.first_name}}</div>
+</div>
+<!------------------------->
+
+<div class="row   border border-dark" >
+<div  class="col-9   ">
+  <div class="row  ">
+   <div class="col-12" > 
+   <table class="table   table-bordered   w-100">
+
+    <tr ><td class="w-25"><b>Name:</b></td><td> {{employedata.first_name}}</td></tr>
+    <tr   ><td class="w-25"><b>Father/Husband's Name: </b</td><td> {{employedata.relation_name}}</td></tr>
+    <tr><td class="w-25"><b>DOB:</b></td><td> {{employedata.dob}}</td></tr>
+    <tr><td class="w-25"><b>Date of Appointment</b></td><td> {{employedata.date_of_joining}}</td></tr>
+    <tr><td class="w-25"><b>Designation</b> </td><td> {{employedata.designation}}</td></tr>
+    <tr style="height: 80px;"><td class="w-25"><b>Address </b></td><td>---</td></tr>
+   </table>
+
+
+  </div></div>
+  
+
+
+</div>
+<div  class="col-3   " >
+  <br>
+  <div style="  border: 2px solid #333; height: 220px;
+  padding: 5px; ">
+  <img  width="180px"  class="align-baseline"  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">  
+</div></div>
+ 
+
+</div>
+<div class="row  ">
+  <div  class="col-3  border border-dark " >
+    <b> Place of working:</b>
+  </div>
+ <div  class="col-9  " > 
+  <div class="row  border border-dark">
+    <div class="col-2  border border-dark"><b>Center : </b></div>
+    <div class="col-4  border border-dark">fdsa</div>
+    <div class="col-2  border border-dark"><b>Branch :</b></div>
+    <div class="col-4  border border-dark">fdsf</div>
+  </div>
+
+  
+  </div>
+
+</div>
+ 
+<div class="row  ">
+ <div class="col-12">
+<b>Particulars of Dependents:</b>
+ </div>
+ </div>
+<div class="row  ">
+ <div class="col-8"> 
+  <table class="table  table-bordered">
+ <tr> 
+<th>Name</th>
+<th>Age/Dob</th>
+<th>Relation</th> 
+ </tr>
+
+  <tr><td> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</td>
+    <td> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</td>
+    <td> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</td>
+  </tr>
+  <tr><td> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</td>
+    <td> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</td>
+    <td> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</td>
+  </tr>
+  
+   
+ </table>
+   
+   </div>
+ 
+ <div class="col-4">
+  <table  class="table table-bordered">
+    <tr><td>PAN No:
+      {{employedata.pan_number}}
+    </td></tr>
+
+    <tr><td>UAN No:
+      {{employedata.uan_number}}
+    </td></tr>
+    
+    <tr><td>Aadhar No:
+      {{employedata.Aadhar}}
+    </td></tr>
+
+
+  </table>
+   </div>
+ 
+</div>
+
+
+<div class="row border" style="height: 100px;">
+
+</div>
+
+
+
+
+</div>
+
+ {%endfor%}
+</body>
+</html>
+
+
+ 
+
+ 
+
+ 

@@ -11,7 +11,7 @@ from menumanager.views import MenuView
 from salarymanager import views as salView
 from django.conf import settings
 from django.conf.urls.static import static
-from employeemanager.views import DownloadViewSet, FileUploadView
+from employeemanager.views import DownloadViewSet, FileUploadView, EmployeeIdcardsviewSet
  
 
 router = DefaultRouter()
@@ -62,6 +62,8 @@ front_urls = [path('', frentViews.dashboard),
 
 urlpatterns = front_urls+[
      path('api/download/', DownloadViewSet.as_view() ),
+     path('api/idcards/', EmployeeIdcardsviewSet.as_view() ),
+     
         path('api/upload/', FileUploadView.as_view(), name='file-upload'),
         path('api/signin/', userVies.SignInView.as_view(), name='signin'),
         # path('api/downloadexcel/', salView.YourModelViewSet.as_view({'get': 'download_payslip'}), name='download-excel'),
