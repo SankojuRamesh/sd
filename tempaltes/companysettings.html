@@ -123,7 +123,7 @@
     },
     update_setting(){
   
-       url = "http://localhost:8000/api/company/company/"+this.company.company.id+"/"
+       url = "http://"+$("#base_url").val()+"/api/company/company/"+this.company.company.id+"/"
        
       //  this.company_data['name']= this.company.company.name
       //   this.company_data['email']= this.company.company.email
@@ -144,18 +144,7 @@
         }
         if(this.company_data['logo_state']== "changed"){
           data["logo"]= this.company_data['logo']
-        }
-
-         
-        // this.formData.append('address',this.company_data['address'])
-        // this.formData.append('name',this.company_data['name'])
-        // this.formData.append('phone',this.company_data['phone'])
-        // this.formData.append('email',this.company_data['email'])
-        // // this.formData.append('logo', this.company_data['logo'])
-        // this.formData.append('pf_persentage', this.company_data['pf_persentage'])
-        // this.formData.append('esi_persentage', this.company_data['esi_persentage'])  
-
-       
+        } 
        config.headers['content-type']='multipart/form-data'
        console.log(this.formData)
        axios.put(url,  data,config)
