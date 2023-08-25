@@ -33,10 +33,7 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         today_date = datetime.today().strftime('%Y-%m-%d')
         
         empdata = salaryModel.objects.get(employee_code_id=saldata_data['employee_code'] )
-        
-        print("+++++++++++++++++++++++++++++*++++++++++++++")
-        print(float(empdata.MedicalAllowance+empdata.SpecialAllowance)  )
-        print("+++++++++++++++++++++++++++++*******++++++++++++++")
+         
         empsal = {
              "company"     :empdata.company,
             "employee_code" :empdata.employee_code.employee_code,

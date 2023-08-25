@@ -1,6 +1,7 @@
 
 {% extends "base.html" %}
 {% block content %}
+{%  load static %}
 
 <div class="app-title">
     <div>
@@ -63,15 +64,8 @@
 
                  <td v-if="edata.emp_attendance">  [[ edata.emp_attendance.attendance_days  ]]   </td> 
                  <td v-else>  ---  </td> 
-                  <td   v-if="edata.emp_attendance ">
-                     <div class="btn-group" >
-                       <a href="#"  @click = "downloadpayslip([[edata.emp_attendance.payslip]])">Download Payslip</a>
-                    <!-- <button class="btn btn-primary btn-sm" @click = "deleteCompany([[edata.id]])" type="button"><i class="bi bi-trash fs-5"></i></button>
-                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-reply fs-5"></i></button>
-                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-share fs-5"></i></button> -->
-                   
-                  </div> 
-                  <td v-else> <a  href="/newattendence"  >  Add Attendance  </a> </td> 
+                  <td   >
+                    
                 
                 
                 </td>

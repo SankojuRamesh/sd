@@ -179,3 +179,5 @@ class EmployeeIdcardsviewSet(APIView):
             return HttpResponse("File not found", status=404)
 
 
+
+

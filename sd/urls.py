@@ -49,6 +49,10 @@ front_urls = [path('', frentViews.dashboard),
           path('login', frentViews.login),
             path('home', frentViews.home),
           path('attendence', frentViews.AttendanceView),
+          path('myattendence', frentViews.MyAttendanceView),
+        path('myfamaly', frentViews.MyfamalyView),
+
+
           path('newattendence', frentViews.NewAttendanceView),
           path('company', frentViews.CompanyList),
           path('salary', frentViews.Salary),

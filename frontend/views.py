@@ -35,6 +35,14 @@ def  AttendanceView(request):
     Attendence_list =    AttendanceModel.objects.all()
     return render(request, "attendance.html", {'data':Attendence_list })
 
+def MyAttendanceView(request):
+    Attendence_list =    AttendanceModel.objects.all()
+    return render(request, "frontend/myattendance.html", {'data':Attendence_list })
+
+
+def MyfamalyView(request):
+    Attendence_list =    AttendanceModel.objects.all()
+    return render(request, "frontend/myfamaly.html", {'data':Attendence_list })
 def  NewAttendanceView(request):
     Attendence_list =    AttendanceModel.objects.all()
     return render(request, "new_attendance.html", {'data':Attendence_list }) 

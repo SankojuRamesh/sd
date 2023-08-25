@@ -1,0 +1,199 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title"  >
+    <div>
+      <h1><i class="bi bi-table"></i>Employee list </h1>
+      
+    </div>
+    
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item">employee</li>
+      <li class="breadcrumb-item active"><a href="#">Employee Fmaly list</a></li>
+    </ul>
+  </div> 
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="sampleTable">
+              <thead>
+                <tr>
+               <th> Photo   </th>   
+                <th> Name   </th>  
+                <th> Relation   </th>  
+                 <th> Age   </th> 
+                 <th> Aadhar   </th>   
+                 
+                
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr   v-for="fdata in famalydata" > 
+                    <td class=" "> <img  width="60px" :src="[[fdata.photo]]"> </td> 
+                     <td class=" "> [[fdata.name]]  </td> 
+                     <td class=" ">[[fdata.relation]]  </td> 
+                     <td class=" "> [[fdata.age]]  </td> 
+                     <td class=" "> <img  width="60px" :src="[[fdata.aadhar]]">    </td> 
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <div class="row">
+
+    <div class="col-md-12">
+        <div class="tile">
+          <div class="tile-body">
+            <div class="table-responsive">
+
+            <form>
+                <table  class="table table-hover table-bordered"  >
+                     <thead>
+                        <tr>
+                       <th> Photo   </th>   
+                        <th> Name   </th>  
+                        <th> Relation   </th>  
+                         <th> Age   </th> 
+                         <th> Aadhar   </th>   
+                          <th> Action   </th>
+                        
+        
+                        </tr>
+                      </thead>
+                      <tbody>
+                     
+                      <tr v-for="(row, key) in rows ">
+                      <td><input  :id="'pic_'+key"   @change="onFileChange"  type="file"></td>
+                      <td><input   v-model="rows[key]['name']"   > </td>
+                      <td><input  v-model="rows[key]['relation']"  ></td>
+                      <td><input  v-model="rows[key]['age']"  ></td>
+                      <td><input   :id="'aadhar_'+key"   @change="onFileChange"   type="file"></td>
+                      <td><a class="btn btn-primary" href="#"><i class="bi bi-trash fs-5"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </form> 
+                  <button @click="addRow()">Add New</button>
+                  <div class="tile-footer">  <button @click="postFamaly">Save</button></div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+ 
+
+ 
+  {% endblock %}
+
+  {% block script %}
+  
+
+  <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
+  <script>
+     
+    new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        Menu:[],
+        rows:[],
+       
+        message: '',
+        famalydata: '',
+        company: JSON.parse(localStorage.getItem("Token")),
+        url : "api/employee/employeefamaly/"
+
+      },
+      methods: {
+        addRow(){
+         
+          this.rows.push({"pic":'','name':"hi",'relation':"br", "age":'89', "aadhar":''}) 
+          
+        },
+       
+        getFamaly(){
+            const params = new URLSearchParams(window.location.search);
+            const empid = params.get('emiid'); 
+        const URL = "http://"+$("#base_url").val()+'/api/employee/employeefamaly/?emiid='+empid
+        console.log(URL )
+        axios.get(URL , config)
+        .then(response =>{
+            this.famalydata = response.data
+            console.log(response.data)
+       
+
+        }).catch((error) =>{
+
+        })
+
+        },
+        onFileChange(e){
+          
+          obj = e.target.id.split("_") 
+          var files = e.target.files || e.dataTransfer.files;
+          this.rows[obj[1]][obj[0]] = files
+           
+        },
+        
+      postFamaly(){ 
+     
+            
+        
+        const params = new URLSearchParams(window.location.search);
+        this.rows.forEach(element => {
+          const empid = params.get('emiid'); 
+          const formData = new FormData();
+          formData.append('photo', element.pic[0] );
+          formData.append('aadhar',element.aadhar[0] );
+          formData.append('emiid',empid);
+          formData.append('name', element.name );
+          formData.append('relation', element.relation );
+          formData.append('age', element.age );  
+            const URL = "http://"+$("#base_url").val()+'/api/employee/employeefamaly/'
+              axios.post(URL , formData, config)
+              .then(response =>{
+                  console.log(response.data)
+
+            }).catch((error) =>{
+
+            })
+
+
+
+
+        })
+
+
+        location.reload();
+        
+      },
+        
+      
+      },
+      mounted(){
+        this.Menu = menuview()
+          console.log(this.Menu)
+          this.getFamaly()
+       
+          
+        }
+    }); 
+    
+    
+</script>
+{% endblock %}
+ 
