@@ -133,6 +133,7 @@
         }  ,
         getEmpDAta(){
           var URL = this.url+this.company.company.id+"&month="+this.curentMonth+"&year="+this.curentYear 
+          this.getDaysInMonth(this.curentYear, this.monthNames.indexOf(this.curentMonth)+1)
           var that = this
           console.log(URL+this.company.company.id)
           axios.get(URL , config)

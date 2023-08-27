@@ -36,6 +36,8 @@ class AttendanceViewSet(viewsets.ModelViewSet):
          
         empsal = {
              "company"     :empdata.company,
+              "company_adders"     :empdata.company.address,
+               "company_logo"     :empdata.company.logo,
             "employee_code" :empdata.employee_code.employee_code,
             "fname":empdata.employee_code.first_name,
             "lname":empdata.employee_code.last_name,
@@ -80,8 +82,11 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         }
 
         # Generate the PDF from the HTML string and save it to the output path
-        pdfkit_config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
-        pdfkit.from_string(html_message, pdf_output_path, options=pdf_options,configuration=pdfkit_config) 
+        # pdfkit_config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+        # pdfkit.from_string(html_message, pdf_output_path, options=pdf_options,configuration=pdfkit_config) 
+        
+        pdfkit.from_string(html_message, pdf_output_path, options=pdf_options) 
+
         saldata_data['payslip'] = pdf_output_path
         print(saldata_data)
         serializer = self.get_serializer(data=saldata_data)

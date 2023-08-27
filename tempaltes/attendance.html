@@ -1,6 +1,9 @@
 
 {% extends "base.html" %}
+
 {% block content %}
+
+{%load static %}
 
 <div class="app-title">
     <div>
@@ -104,7 +107,7 @@
         years : [],
         months:[],  
         curentYear : new Date().getFullYear(),
-        curentMonth:'',
+        curentMonth:'ALL',
        
       },
       methods: {
@@ -153,6 +156,7 @@
               axios.post(url,data, config).then(response => {              
                  this.getAttendenceList()
                 console.log(response )
+                location.href = '/attendence'
               }).catch((error) => {
                   if( error.response.status == 401){
                     window.location.replace("http://"+$("#base_url").val()+"/login");
@@ -186,9 +190,10 @@
       this.months = MONTHS_OF_YEAR()
        
       this.curentMonth =  monthNames[new Date().getMonth()]
+      
 
 
-      // this.getAttendenceList()
+       this.getAttendenceList()
         
         },
         computed : {
