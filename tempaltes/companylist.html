@@ -102,7 +102,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"  @click="newCompany"  >Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
       </div>
     </div>
 
@@ -160,6 +160,7 @@
             axios.post(this.url, data, config).then(response => {  
                  $(".close").click() 
                  this.getCompanyList()
+                 window.location.reload()
                }).catch((error) => {
               if( error.response.status == 201){
                 
