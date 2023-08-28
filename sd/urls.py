@@ -57,6 +57,7 @@ front_urls = [path('', frentViews.dashboard),
           path('company', frentViews.CompanyList),
           path('salary', frentViews.Salary),
           path('newsalary', frentViews.NewSalary),  
+           path('addsalary', frentViews.BulkSalary), 
            path('famaly', frentViews.EmpFamaly),  
           path('companysettings', frentViews.CompanySettingsview),  
 

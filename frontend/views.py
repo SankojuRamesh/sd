@@ -58,6 +58,11 @@ def  NewSalary(request):
     data = {"user":request.GET.get('user')   } 
     return render(request, "newsalary.html" , data)
 
+
+def  BulkSalary(request): 
+    data = {"user":request.GET.get('user')   } 
+    return render(request, "bulksalary.html" , data)
+
  
 
 def  EmpFamaly(request): 

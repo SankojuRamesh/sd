@@ -23,24 +23,24 @@
               <thead>
                 <tr>
               
-                <th> Name   </th>  
+                <th> first_name   </th>  
                 <th>  Emp Code   </th> 
                
                 <th>salary </th>  
                
-                <th>PF Deductiion </th> 
-                 <th>ESI Deduction </th> 
-                <th>DA  </th> 
-                 <th>HRA</th>
-                   <th>CA </th>
+                <th>pf_deductiion </th> 
+                 <th>esi_deduction </th> 
+                <th>DearnessAllowance </th> 
+                 <th>HouseRentAllowance </th>
+                   <th>ConveyanceAllowance </th>
                    <!-- numpy
                    artmetic calucatins 
                    pandas
                    vectros
                    nlp -->
 
-                  <th>MA </th>
-                <th>SPLA </th>
+                  <th>MedicalAllowance </th>
+                <th>SpecialAllowance </th>
               <th>Total </th>
 
 
@@ -53,7 +53,7 @@
               </thead>
               <tbody>
                 <tr v-for="edata in responce_data"  >                 
-                <td style="width: 200px;"> [[edata.first_name]] [[edata.last_name]]</td> 
+                <td > [[edata.first_name]] [[edata.last_name]]</td> 
                 <td>  [[edata.employee_code]]   </td> 
                 <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].BasicSalary ]]</td> 
                 <td  > [[(edata.empsalary=='nosalary')? "---": edata.empsalary[0].pf_deductiion ]]</td> 
