@@ -41,6 +41,7 @@ class EmployeeFamalyViewSet(viewsets.ModelViewSet):
 
 
 class  DownloadViewSet(APIView):
+    permission_classes = [permissions.IsAuthenticated ]
     def get(self, request):
         company = request.GET.get('company')
         file_path = os.path.join(settings.MEDIA_ROOT, "employee_list.csv")  
@@ -60,6 +61,7 @@ class  DownloadViewSet(APIView):
 
 
 class FileUploadView(APIView):
+   permission_classes = [permissions.IsAuthenticated ]
    parser_classes = (MultiPartParser,FormParser,JSONParser)
    def post(self, request, format=None):
         serializer_data = serializer.FileUploadSerializer(data=request.data)

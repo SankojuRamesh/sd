@@ -10,6 +10,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 from django.conf import settings
 from datetime import timedelta
+import datetime
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,7 +25,7 @@ DEBUG = True
 
 BASE_URL  = "http://localhost:8000/" 
 
-ALLOWED_HOSTS = ["localhost","192.168.0.50"]
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
      
      'django_filters',
     'drf_yasg',
+    "menumanager",
     'usermanager',
     'companymanager',
     'employeemanager',
@@ -53,6 +55,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+   
+   
     
  'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,6 +66,7 @@ MIDDLEWARE = [
   
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -168,16 +173,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usermanager.User'
 
 
-SITE_ID = 1
+# SITE_ID = 1
 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -190,11 +196,10 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'nonfield',
 }
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=2),  # Adjust as needed
-}
-# Swagger settings
+ 
+ 
 
+ 
 SWAGGER_SETTINGS = {
     'DEFAULT_INFO': 'SD SRVICE',
     'SECURITY_DEFINITIONS': {
@@ -207,29 +212,4 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
 }
 
-
-
-# DEFAULTS = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#     'ROTATE_REFRESH_TOKENS': False,
-#     'BLACKLIST_AFTER_ROTATION': True,
-#     'ALGORITHM': 'HS256',
-#     'SIGNING_KEY': settings.SECRET_KEY,
-#     'VERIFYING_KEY': None,
-#     'AUDIENCE': None,
-#     'ISSUER': None,
-
-#     'AUTH_HEADER_TYPES': ('Bearer',),
-#     'USER_ID_FIELD': 'id',
-#     'USER_ID_CLAIM': 'user_id',
-
-#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-#     'TOKEN_TYPE_CLAIM': 'token_type',
-
-#     'JTI_CLAIM': 'jti',
-
-#     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-#     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=60),
-#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-# }
+ 

@@ -160,7 +160,7 @@ if(Token.company.logo){
             }
     
     axios.get("http://"+$("#base_url").val()+"/api/menu/?role="+Token.roles, config).then(response => {        
-              
+              console.log("*****************************************")
     }).catch((error) => {
       window.location.replace("http://"+$("#base_url").val()+"/home");   
                

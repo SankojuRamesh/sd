@@ -18,7 +18,7 @@ import pdfkit
 # Create your views here.
 
 class AttendanceViewSet(viewsets.ModelViewSet):
-    # permission_classes = [permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated ]
     serializer_class = serializer.AttendanceSerializer
     queryset =  AttendanceModel.objects.all()
     filterset_class = AttendanceFilter
