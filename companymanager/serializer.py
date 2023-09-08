@@ -10,7 +10,15 @@ User = get_user_model()
 class CompanySerializer(serializers.ModelSerializer): 
     class Meta:
         model = CompanyModels.Company
-        fields = '__all__'
+        fields = [ 'companycode',  'address', 'phone', 'email', 'logo', 'pf_persentage', 'esi_persentage', "total_empolyes"]
+         
+        
+        
+        
+       
+         
+        
+        
 
 
     def create(self, validated_data):

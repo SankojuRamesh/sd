@@ -15,5 +15,10 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def total_empolyes(self): 
+        
+        return  Company.objects.get(id=self.id).companyEmploye.all().count()
 
 

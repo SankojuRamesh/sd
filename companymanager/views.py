@@ -11,7 +11,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 class CompanyViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser,FormParser,JSONParser)
-    permission_classes = [permissions.IsAuthenticated ]
+    # permission_classes = [permissions.IsAuthenticated ]
     serializer_class = serializer.CompanySerializer
     queryset =  Company.objects.all()
     filterset_class = CompanyFilter
