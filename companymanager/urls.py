@@ -8,6 +8,8 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'company', views.CompanyViewSet, basename='company')
+router.register(r'companynofications', views.notificationViewsSet, basename='companynotify')
+
 urlpatterns = [path(r'', include(router.urls))]
 
 urlpatterns += []

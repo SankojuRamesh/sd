@@ -51,6 +51,7 @@ front_urls = [path('', frentViews.dashboard),
           path('attendence', frentViews.AttendanceView),
           path('myattendence', frentViews.MyAttendanceView),
         path('myfamaly', frentViews.MyfamalyView),
+         path('employeedetails', frentViews.Employeedetails),
 
 
           path('newattendence', frentViews.NewAttendanceView),

@@ -25,6 +25,19 @@ def  EmployeeView(request):
     Employe_list = EmployeeModel.objects.all()    
     return render(request, "employee.html", {'data':Employe_list })
 
+def  Employeedetails(request):
+     
+    empid = request.GET.get('id')
+    if empid:
+        print("--------------------------")
+        Employe_list= EmployeeModel.objects.filter(id=empid)
+        print(Employe_list)
+    return render(request, "employeedetails.html", {'data':Employe_list })
+
+
+
+
+
 def  NewEmployeeView(request):
     Employe_list = EmployeeModel.objects.all()    
     return render(request, "newemployee.html", {'data':Employe_list })

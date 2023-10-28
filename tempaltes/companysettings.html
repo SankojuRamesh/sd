@@ -78,7 +78,58 @@
   </div> 
 
  
+  <div class="row">
+    <div class="tile">
+      <div class="tile-body">
+        <div class="table-responsive">
+             
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+              <tr>
+            
+              <th> Title   </th>  
+              <th>  start date   </th> 
+              <th>  End Date  </th>  
+              
+              <th> image  </th> 
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+                
+                  <tr v-for="(value, index ) in company_notifications" >
+                
+                    <th> Title   </th>  
+                    <th>  start date   </th> 
+                    <th>  End Date  </th>  
+                    
+                    <th> image  </th> 
+                  </tr>
+                 
 
+                  <tr >
+                
+                    <th> <input  class="form-control"  type="text">   </th>  
+                    <th>  <input class="form-control"   type="date">   </th> 
+                    <th> <input  class="form-control"  type="date"> </th>  
+                    
+                    <th> <input  class="form-control"  type="file">   </th> 
+                  </tr>
+                  <tr>
+                    <td colspan="4"><button  class="btn btn-primary" style="float: right;" > Save </button></td>
+                  </tr>
+                
+                <tbody>
+              </tbody>
+              </table>
+
+          </div>
+          </div>
+          </div>
+  
+  
+   </div>
  
   {% endblock %}
 
@@ -96,6 +147,8 @@
         formData : new FormData(),
         Menu:[],
         company_data :{"name":'', 'email': '', "phone":'','logo':'' },
+        company_notifications :[],
+        company_newnotifications:[{}],
         
         message: '',
         
@@ -156,6 +209,20 @@
         })
 
     },
+    notification(){
+
+      url =  "http://"+$("#base_url").val()+"/api/company/companynofications/" 
+      axios.get(url, config)
+      .then((resoponce)=>{
+           
+           this.company_notifications =resoponce.data
+           
+
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    },
     changeImage(e){
       const image = e.target.files; 
        this.company_data['logo'] = image[0]
@@ -168,6 +235,7 @@
         this.Menu = menuview()
           console.log(this.Menu)
           this.getcompanyData()
+          this.notification()
        
           
         }

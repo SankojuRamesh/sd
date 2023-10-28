@@ -10,17 +10,7 @@ User = get_user_model()
 class CompanySerializer(serializers.ModelSerializer): 
     class Meta:
         model = CompanyModels.Company
-        fields = [ 'companycode',  'address', 'phone', 'email', 'logo', 'pf_persentage', 'esi_persentage', "total_empolyes"]
-         
-        
-        
-        
-       
-         
-        
-        
-
-
+        fields = ['id','name', 'companycode',  'address', 'phone', 'email', 'logo', 'pf_persentage', 'esi_persentage', "total_empolyes"] 
     def create(self, validated_data):
         phone  = validated_data['phone']
         pwd = "admin@123"       
@@ -28,3 +18,9 @@ class CompanySerializer(serializers.ModelSerializer):
         userDAta = User.objects.create_user_company(phone, pwd, organization, userType="Admin")      
         return organization
  
+
+
+class CompanyNotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyModels.NotificatonsModel
+        fields = "__all__"

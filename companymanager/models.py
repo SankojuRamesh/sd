@@ -22,3 +22,16 @@ class Company(models.Model):
         return  Company.objects.get(id=self.id).companyEmploye.all().count()
 
 
+
+
+class NotificatonsModel(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    commapy = models.ForeignKey(Company, on_delete=models.CASCADE)
+    stard_datae =  models.CharField(max_length=200, null=True, blank=True)
+    end_datae =  models.CharField(max_length=200, null=True, blank=True)
+    images_one = models.ImageField(upload_to='notifications/', null=True, blank=True)
+    images_two = models.ImageField(upload_to='notifications/', null=True, blank=True)
+
+
+
+    

@@ -1,0 +1,177 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title"  >
+    <div>
+      <h1><i class="bi bi-table"></i>Employee list </h1>
+      
+    </div>
+    
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item">employee</li>
+      <li class="breadcrumb-item active"><a href="#">Employee list</a></li>
+    </ul>
+  </div>
+ 
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+            <div class="col-12 table-responsive">
+
+                <table class="table table-striped">
+                  
+                    <tr>
+                      <th>Name</th><th>Qty</th>
+                    </tr> 
+                    <tr>
+                      <th>Employee Code</th><th>Qty</th>
+                    </tr>
+                      <tr>
+                      <th>  Gender  </th><th>99999</th>
+                    </tr>
+                    <tr>
+                      <th>  PhoneNumber  </th><th>99999</th>
+                    </tr>
+
+                    <tr>
+                      <th>  email  </th><th>99999</th>
+                    </tr>
+
+                    <tr>
+                      <th>  Aadhar Number  </th><th>99999</th>
+                    </tr>
+
+                    
+                    <tr>
+                      <th>  Pan Number  </th><th>99999</th>
+                    </tr>
+
+                    <tr>
+                      <th>  Uan Number  </th><th>99999</th>
+                    </tr>
+
+                    <tr>
+                      <th>  Esi Number  </th><th>99999</th>
+                    </tr>
+                    <tr>
+                      <th>  Bank AC No  </th><th>99999</th>
+                    </tr>
+                    <tr>
+                      <th>  Bank AC Name  </th><th>99999</th>
+                    </tr>
+                    <tr>
+                      <th>  Bank Name  </th><th>99999</th>
+                    </tr>
+                    <tr>
+                      <th>  IFSC Code  </th><th>99999</th>
+                    </tr>
+                   
+                   
+                      </table>
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Qty</th>
+                      <th>Product</th>
+                      <th>Serial #</th>
+                      <th>Description</th>
+                      <th>Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>The Hunger Games</td>
+                      <td>455-981-221</td>
+                      <td>El snort testosterone trophy driving gloves handsome</td>
+                      <td>$41.32</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>City of Bones</td>
+                      <td>247-925-726</td>
+                      <td>Wes Anderson umami biodiesel</td>
+                      <td>$75.52</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>The Maze Runner</td>
+                      <td>545-457-47</td>
+                      <td>Terry Richardson helvetica tousled street art master</td>
+                      <td>$15.25</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>The Fault in Our Stars</td>
+                      <td>757-855-857</td>
+                      <td>Tousled lomo letterpress</td>
+                      <td>$03.44</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+ 
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          hihi
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block script %}
+  
+
+  <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
+  <script>
+     
+    new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        Menu:[],
+        message: '',
+        responce_data: '',
+        company: JSON.parse(localStorage.getItem("Token")),
+        DownloadEmployeeIdCards:""
+      },
+      methods: {
+        
+    },
+      mounted(){
+        this.Menu = menuview()
+          
+         
+          
+        }
+    }); 
+    
+    $('#sampleTable').DataTable(); 
+  
+</script>
+{% endblock %}
+ 

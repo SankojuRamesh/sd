@@ -29,6 +29,7 @@
                 <th>  address   </th> 
                 <th>  phone  </th>  
                 <th> email   </th> 
+                <th> total empolyes   </th> 
                   <th> Actipns </th>  
                 </tr>
               </thead>
@@ -39,7 +40,7 @@
                   <td> [[edata.address]]  </td> 
                   <td> [[edata.phone]]   </td> 
                   <td>  [[edata.email]]  </td> 
-                
+                <td>  [[edata.total_empolyes]]  </td> 
                   <td> <div class="btn-group">
                     <button class="btn btn-primary btn-sm" @click = "deleteCompany([[edata.id]])" type="button"><i class="bi bi-trash fs-5"></i></button>
                     <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-reply fs-5"></i></button>
@@ -56,6 +57,8 @@
     </div>
 
   </div> 
+ <br>
+
 
 
            <!-- Modal -->
@@ -154,6 +157,7 @@
                 address: this.companyaddres,
                 phone:  this.companyphone,
                 email:  this.companyemail,
+                
                 
               }
             
