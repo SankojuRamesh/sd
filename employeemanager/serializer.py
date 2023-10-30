@@ -36,12 +36,18 @@ class EmployeeSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)        
         
         salary_data  =  salaryModelSerializer(instance.empsalary, many=True).data
+        addedbyname = '---'
+        if representation['addedby'] :
+             
+            addedbyname= User.objects.get(id=int(representation['addedby'])).name
+             
+             
         
         if salary_data:
             data =  salary_data
         else:            
             data = "nosalary"  
-        representation.update({"empsalary":  data})    
+        representation.update({"empsalary":  data, "addedbyname":addedbyname})    
        
 
         return representation

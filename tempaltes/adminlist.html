@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+{% block content %}
+{%load static%}
+<div class="app-title"  >
+    <div>
+      <h1><i class="bi bi-table"></i>Admins list </h1>
+      
+    </div>
+    
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+      <li class="breadcrumb-item">Admins</li>
+      <li class="breadcrumb-item active"><a href="#">Admins list</a></li>
+    </ul>
+  </div>
+  <button  class="btn btn-primary"   data-toggle="modal" data-target="#exampleModal" >New   Admin</button>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+
+
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                    <tr>
+                    <th> Sl No :  </th>  
+                    <th> name   </th>   
+                    <th>  contact_number  </th>  
+                    <th> Actisns </th>   
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for admins in adminlist%}
+                    <tr >
+                        <td>{{admins.id}} </td>  
+                        <td> {{admins.name}}   </td>   
+                        <td>  {{admins.phone}}  </td>  
+                        <td> Actisns </td>  
+
+                    </tr>
+                    {%endfor%}
+                    </tbody>
+                    </table>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+      <!-- 17-6-1994 -->
+      <div class="login-box">
+        <form class="login-form" action="" autocomplete="new-password">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" type="text" placeholder="Name" v-model='name' id="name" autocomplete="name">
+           </div>
+          <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input class="form-control" type="text" placeholder="Phone No" v-model='phone' id="phone" autocomplete="username">
+           
+            
+          </div>
+         
+         
+           
+        </form>
+     
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" @click="newadmin" class="btn btn-primary">Save </button>
+      </div>
+    </div>
+  </div>
+</div>        
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script> 
+<script>
+
+new Vue({
+      delimiters: ['[[', ']]'], // Use custom 
+      el: '#app',
+      data: {
+        Menu:[],
+        message: '',
+        responce_data: '',
+        phone:'',
+        name:"",
+        company: JSON.parse(localStorage.getItem("Token")),
+        DownloadEmployeeIdCards:""
+      },
+ 
+      methods: {
+
+        newadmin:function(){
+           if(this.phone && this.name) {
+              var url = "http://"+$("#base_url").val()+'/adminslist/?phoneno='+this.phone+"&company="+this.company.company.id+"&name="+this.name             
+              axios.get(url).then(response => {
+                 window.location.reload()
+              })
+           }
+        }
+      },
+      mounted(){
+        
+        this.Menu = menuview()
+    }
+    })
+ </script>
+
+{% endblock %}
+ 

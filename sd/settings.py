@@ -26,7 +26,7 @@ DEBUG = True
 BASE_URL  = "http://localhost:8000/" 
 
 ALLOWED_HOSTS = ["localhost"]
-
+# hosting username pwd  70.35.201.35  root  H#9wA0NE5M   
 
 # Application definition
 

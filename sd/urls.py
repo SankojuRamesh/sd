@@ -43,11 +43,11 @@ swagger_info = openapi.Info(
 )
 
 
-front_urls = [path('', frentViews.dashboard),
+front_urls = [path('dashboard', frentViews.dashboard),
           path('employee', frentViews.EmployeeView),
           path('newemployee', frentViews.NewEmployeeView),
           path('login', frentViews.login),
-            path('home', frentViews.home),
+            path('', frentViews.home),
           path('attendence', frentViews.AttendanceView),
           path('myattendence', frentViews.MyAttendanceView),
         path('myfamaly', frentViews.MyfamalyView),
@@ -75,8 +75,12 @@ urlpatterns = front_urls+[
         path('api/signin/', userVies.SignInView.as_view(), name='signin'),
         # path('api/downloadexcel/', salView.YourModelViewSet.as_view({'get': 'download_payslip'}), name='download-excel'),
         path('logout/', userVies.Logout, name='loout'),
+        path('adminslist/', userVies.adminslist, name='userlist'),
+        
+        
         path('admin/', admin.site.urls),
         path('api/', include(router.urls)),
+        
         
         path('api/user/', include('usermanager.urls')),
         path('api/employee/', include('employeemanager.urls')),

@@ -22,8 +22,14 @@ def  dashboard(request):
 
     return render(request, "dashboard.html") 
 def  EmployeeView(request):
-    Employe_list = EmployeeModel.objects.all()    
-    return render(request, "employee.html", {'data':Employe_list })
+    uid = request.GET.get('uid')
+    
+    try:
+        Employe_list = EmployeeModel.objects.filter(id=1)    
+        return render(request, "employee.html", {'data':{} })
+    except:
+        return render(request, "employee.html", {'data':{} })
+
 
 def  Employeedetails(request):
      

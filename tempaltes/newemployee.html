@@ -285,11 +285,13 @@
           bank_ac_no:this.abankac,
           ifsc_code:this.ifsc,
           bank_name:this.bname,
-          Image:"frwe"
+          Image:"frwe",
+          addedby:this.Token.id
 
         }        
        
          console.log(payload)
+        
         const URL = "http://"+$("#base_url").val()+'/api/employee/employee/'
         axios.post(URL,payload, config)
         .then(response => {

@@ -71,15 +71,9 @@ class FileUploadView(APIView):
             uploaded_file = serializer_data.validated_data['file'] 
             df = pd.read_csv(uploaded_file,  skipinitialspace=True).fillna('--')
             df.columns = df.columns.str.replace(' ', '')
-            df.columns = df.columns.str.rsplit('/', n=1).str[-1]
-            print( df.columns )
-             
-
-
+            df.columns = df.columns.str.rsplit('/', n=1).str[-1] 
             dict = {}
-            for index, row in df.iterrows():
-                
-
+            for index, row in df.iterrows():  
                 ac = row['BankAccountNo,IFSCCode']
                 ifsc =  row['BankAccountNo,IFSCCode']
                 if row['BankAccountNo,IFSCCode'] != 'NOT AVAIALABLE':

@@ -31,16 +31,30 @@ class UserManager(auth_models.BaseUserManager):
         user.save(using=self._db)
 
         return user
-    def create_user_company(self, phone, password , company, userType):
+    def create_user_company(self, phone, password , company, userType, name='admin_'):
         user = self.create_user(phone, password)        
         user.company = company        
         user.is_staff = True
         user.is_superuser = False
         user.is_admin = True
-        roleid= 2
+        user.name= name 
+        roleid= 4
         if userType == 'Employee':
-            roleid = 3
+            roleid = 4
         user.roles = usermodel.UserRole.objects.get(id=roleid)
         user.save(using=self._db)
         return user
 
+    def create_subadmin_company(self, phone, password , company, userType, name=''):
+        user = self.create_user(phone, password)        
+        user.company = company        
+        user.is_staff = False
+        user.is_superuser = False
+        user.is_admin = True
+        user.name= name
+        roleid= 3
+        if userType == 'SubAdmin':
+            roleid = 3
+        user.roles = usermodel.UserRole.objects.get(id=roleid)
+        user.save(using=self._db)
+        return user

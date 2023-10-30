@@ -44,14 +44,15 @@
               
                 <th> uan number            </th> 
                   <th>     esi_number      </th>  
-                  <th> Actipns </th>  
+                   <th>     Added By      </th>  
+                  <th> Actions </th>  
                 
 
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(edata, index) in responce_data"  >
-                  <th> [[index+1]]   </th>  
+                  <td> [[index+1]]   </td>  
                   <td class="expand-button"> [[edata.first_name]]  </td> 
                  
                   <td>  [[edata.phone]] </td> 
@@ -64,7 +65,8 @@
                   
                   <td>     [[edata.pan_number  ]]      </td> 
                  <td      > [[edata.pf_no ]]</td> 
-                 <td      > [[edata.esi_no ]]</td> 
+                 <td      > [[edata.esi_no ]]</td>
+                  <td      > [[edata.addedbyname ]]</td>
                   <td>  
                    
                   
@@ -190,9 +192,19 @@
       });
     },
         getEmpDAta(){
-        const URL = "http://"+$("#base_url").val()+'/api/employee/employee/?company='
-        console.log(URL+this.company.company.id)
-        axios.get(URL+this.company.company.id, config)
+         
+        
+       
+        if(this.company.roles == "Admin"){
+          
+          var URLPATH  = "http://"+$("#base_url").val()+'/api/employee/employee/?company='+this.company.company.id 
+        }
+        if(this.company.roles == "SubAdmin"){
+          var URLPATH  = "http://"+$("#base_url").val()+'/api/employee/employee/?company='+this.company.company.id+"&addedby="+this.company.id
+        }
+
+       
+        axios.get(URLPATH, config)
         .then(response => {
           data = response.data  
           this.responce_data =  data            

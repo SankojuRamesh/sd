@@ -458,8 +458,9 @@
            method:"POST", 
            success: function(response) { 
                console.log('Response from server:', response);
+               console.log(response)
                localStorage.setItem("Token", JSON.stringify(response));
-               window.location.replace(baseurl);
+               window.location.replace(baseurl+"/dashboard");
                
            },
            error: function(xhr, status, err) {
