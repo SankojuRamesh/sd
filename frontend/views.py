@@ -29,9 +29,9 @@ def  Employeedetails(request):
      
     empid = request.GET.get('id')
     if empid:
-        print("--------------------------")
-        Employe_list= EmployeeModel.objects.filter(id=empid)
-        print(Employe_list)
+         
+        Employe_list= EmployeeModel.objects.get(id=empid)
+         
     return render(request, "employeedetails.html", {'data':Employe_list })
 
 
